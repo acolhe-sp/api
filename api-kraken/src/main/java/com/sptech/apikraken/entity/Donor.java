@@ -1,6 +1,10 @@
 package com.sptech.apikraken.entity;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_donor")
@@ -12,13 +16,16 @@ public class Donor {
     private Integer id;
 
     @Column(name = "rg_donor")
+    @Length(max = 12)
     private String rg;
 
     @Column(name = "cpf_donor")
+    @CPF
     private String cpf;
 
     @OneToOne
     @JoinColumn(name = "fk_user", referencedColumnName = "id_user")
+    @NotNull
     private User user;
 
     public Donor() {}

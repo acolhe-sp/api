@@ -1,6 +1,11 @@
 package com.sptech.apikraken.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,18 +19,22 @@ public class Post {
 
     @ManyToOne
     @JoinColumn(name = "fk_user", referencedColumnName = "id_user")
+    @NotNull
     private User user;
 
     @Column(name = "description_post")
     private String description;
 
     @Column(name = "img_post")
+    @Length(min = 5, message = "imagem inválida")
     private String img;
 
     @Column(name = "datetime_post")
+    @PastOrPresent
     private LocalDateTime dateTime;
 
     @Column(name = "amount_evaluate_post")
+    @PositiveOrZero
     private int amountEvaluate;
 
     public Post() {}

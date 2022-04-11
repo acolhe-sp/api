@@ -1,9 +1,10 @@
 package com.sptech.apikraken.dto;
 
-import com.sptech.apikraken.entity.Address;
+import com.sptech.apikraken.entity.User;
 
 public class UserDTO {
 
+    private Integer id;
     private String img;
     private String name;
     private String email;
@@ -16,6 +17,29 @@ public class UserDTO {
         this.email = email;
         this.password = password;
         this.addressDTO = addressDTO;
+    }
+
+    public UserDTO(Integer id, String img, String name, String email, String password, AddressDTO addressDTO) {
+        this(img, name, email, password, addressDTO);
+        this.id = id;
+    }
+
+    public UserDTO(User user) {
+        this(
+                user.getImg(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                new AddressDTO(user.getAddress())
+        );
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getImg() {
@@ -61,11 +85,12 @@ public class UserDTO {
     @Override
     public String toString() {
         return "UserDTO{" +
-                "img='" + img + '\'' +
+                "id=" + id +
+                ", img='" + img + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", address=" + addressDTO +
+                ", addressDTO=" + addressDTO +
                 '}';
     }
 }

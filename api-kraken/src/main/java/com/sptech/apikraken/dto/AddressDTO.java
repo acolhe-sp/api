@@ -1,5 +1,7 @@
 package com.sptech.apikraken.dto;
 
+import com.sptech.apikraken.entity.Address;
+
 public class AddressDTO {
 
     private String state;
@@ -16,6 +18,17 @@ public class AddressDTO {
         this.street = street;
         this.number = number;
         this.complement = complement;
+    }
+
+    public AddressDTO(Address address) {
+        this(
+             address.getState(),
+             address.getDistrict(),
+             address.getCep(),
+             address.getStreet(),
+             address.getNumber(),
+             address.getComplement()
+        );
     }
 
     public String getState() {

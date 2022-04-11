@@ -1,6 +1,9 @@
 package com.sptech.apikraken.entity;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_ngo")
@@ -12,6 +15,7 @@ public class NGO {
     private Integer id;
 
     @Column(name = "cnpj_ngo")
+    @CNPJ
     private String cnpj;
 
     @Column(name = "description_ngo")
@@ -23,6 +27,7 @@ public class NGO {
 
     @OneToOne
     @JoinColumn(name = "fk_user", referencedColumnName = "id_user")
+    @NotNull
     private User user;
 
     public NGO() {}

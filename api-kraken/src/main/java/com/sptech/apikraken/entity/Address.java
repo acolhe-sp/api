@@ -1,5 +1,7 @@
 package com.sptech.apikraken.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,7 @@ public class Address {
     private Integer id;
 
     @Column(name = "state_address")
+    @Length(min = 3, message = "estate min lenght")
     private String state;
 
     @Column(name = "district_address")

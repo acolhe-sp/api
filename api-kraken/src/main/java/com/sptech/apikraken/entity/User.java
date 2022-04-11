@@ -1,6 +1,9 @@
 package com.sptech.apikraken.entity;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 @Entity
 @Table(name = "tb_user")
@@ -12,12 +15,15 @@ public class User {
     private Integer id;
 
     @Column(name = "img_user")
+    @Length(min = 5, message = "Imagem inválida")
     private String img;
 
     @Column(name = "name_user")
+    @Length(min = 3, max = 50, message = "Nome inválido")
     private String name;
 
     @Column(name = "email_user")
+    @Email
     private String email;
 
     @Column(name = "password_user")

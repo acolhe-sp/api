@@ -1,6 +1,7 @@
 package com.sptech.apikraken.dto;
 
 import com.sptech.apikraken.entity.Category;
+import com.sptech.apikraken.entity.NGO;
 
 public class NgoDTO extends UserDTO{
 
@@ -13,6 +14,19 @@ public class NgoDTO extends UserDTO{
         this.cnpj = cnpj;
         this.description = description;
         this.category = category;
+    }
+
+    public NgoDTO(NGO ngo) {
+        super(
+            ngo.getUser().getImg(),
+            ngo.getUser().getName(),
+            ngo.getUser().getEmail(),
+            ngo.getUser().getPassword(),
+            new AddressDTO(ngo.getUser().getAddress())
+        );
+        this.cnpj = ngo.getCnpj();
+        this.description = ngo.getDescription();
+        this.category = ngo.getCategory();
     }
 
     public String getCnpj() {
