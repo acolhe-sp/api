@@ -2,13 +2,27 @@ package com.sptech.apikraken.dto;
 
 import com.sptech.apikraken.entity.Address;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+
 public class AddressDTO {
 
+    @NotBlank
     private String state;
+
+    @NotBlank
     private String district;
+
+    @NotBlank
     private String cep;
+
+    @NotBlank
     private String street;
+
+    @NotBlank
+    @Positive
     private String number;
+
     private String complement;
 
     public AddressDTO(String state, String district, String cep, String street, String number, String complement) {

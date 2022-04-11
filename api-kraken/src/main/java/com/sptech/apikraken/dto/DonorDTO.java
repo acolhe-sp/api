@@ -2,27 +2,22 @@ package com.sptech.apikraken.dto;
 
 
 import com.sptech.apikraken.entity.Donor;
-import com.sptech.apikraken.entity.User;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class DonorDTO extends UserDTO{
 
+    @NotBlank
+    @Pattern(regexp = "/(\\d{1,2})(\\d{3})(\\d{3})(\\d{1})$/")
     private String rg;
+
+    @CPF
     private String cpf;
 
-    public DonorDTO(String img, String name, String email, String password, AddressDTO addressDTO, String rg, String cpf) {
-        super(img, name, email, password, addressDTO);
-        this.rg = rg;
-        this.cpf = cpf;
-    }
-
     public DonorDTO(Donor donor) {
-        super(
-            donor.getUser().getImg(),
-            donor.getUser().getName(),
-            donor.getUser().getEmail(),
-            donor.getUser().getPassword(),
-            new AddressDTO(donor.getUser().getAddress())
-        );
+        super(donor.getUser());
         this.rg = donor.getRg();
         this.cpf = donor.getCpf();
     }

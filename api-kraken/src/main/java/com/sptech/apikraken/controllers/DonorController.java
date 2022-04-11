@@ -49,7 +49,9 @@ public class DonorController {
                 donor.getName(),
                 donor.getEmail(),
                 donor.getPassword(),
-                this.registerAddressUseCase.execute(newAddress)
+                this.registerAddressUseCase.execute(newAddress),
+                donor.getUserType(),
+                donor.isConnect()
         );
 
         User userRegister = this.registerUserValidateUseCase.execute(newUser);

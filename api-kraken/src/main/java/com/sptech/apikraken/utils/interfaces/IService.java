@@ -1,4 +1,4 @@
-package com.sptech.apikraken.service;
+package com.sptech.apikraken.utils.interfaces;
 
 public interface IService<P, R> {
 

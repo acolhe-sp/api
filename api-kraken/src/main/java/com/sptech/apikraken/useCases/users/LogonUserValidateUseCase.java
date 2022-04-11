@@ -3,7 +3,7 @@ package com.sptech.apikraken.useCases.users;
 import com.sptech.apikraken.dto.PayloadRetornoLogon;
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.repository.IUserRepository;
-import com.sptech.apikraken.useCases.IUseCase;
+import com.sptech.apikraken.utils.interfaces.IUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class LogonUserValidateUseCase implements IUseCase<User, PayloadRetornoLogon> {

@@ -2,28 +2,23 @@ package com.sptech.apikraken.dto;
 
 import com.sptech.apikraken.entity.Category;
 import com.sptech.apikraken.entity.NGO;
+import org.hibernate.validator.constraints.br.CNPJ;
+
+import javax.validation.constraints.NotNull;
 
 public class NgoDTO extends UserDTO{
 
+    @CNPJ
     private String cnpj;
+
     private String description;
+
+    @NotNull
     private Category category;
 
-    public NgoDTO(String img, String name, String email, String password, AddressDTO addressDTO, String cnpj, String description, Category category) {
-        super(img, name, email, password, addressDTO);
-        this.cnpj = cnpj;
-        this.description = description;
-        this.category = category;
-    }
 
     public NgoDTO(NGO ngo) {
-        super(
-            ngo.getUser().getImg(),
-            ngo.getUser().getName(),
-            ngo.getUser().getEmail(),
-            ngo.getUser().getPassword(),
-            new AddressDTO(ngo.getUser().getAddress())
-        );
+        super(ngo.getUser());
         this.cnpj = ngo.getCnpj();
         this.description = ngo.getDescription();
         this.category = ngo.getCategory();

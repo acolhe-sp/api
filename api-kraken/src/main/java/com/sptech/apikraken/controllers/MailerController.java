@@ -2,7 +2,7 @@ package com.sptech.apikraken.controllers;
 
 import com.sptech.apikraken.dto.MailerDTO;
 import com.sptech.apikraken.entity.Mailer;
-import com.sptech.apikraken.services.MailerService;
+import com.sptech.apikraken.service.MailerService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

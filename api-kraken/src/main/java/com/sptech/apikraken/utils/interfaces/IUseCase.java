@@ -1,4 +1,4 @@
-package com.sptech.apikraken.useCases;
+package com.sptech.apikraken.utils.interfaces;
 
 public interface IUseCase<P, R> {
 

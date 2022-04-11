@@ -10,11 +10,9 @@ import com.sptech.apikraken.repository.IUserRepository;
 import com.sptech.apikraken.useCases.addresses.RegisterAddressUseCase;
 import com.sptech.apikraken.useCases.ngos.RegisterNGOValidateUseCase;
 import com.sptech.apikraken.useCases.users.RegisterUserValidateUseCase;
+import com.sptech.apikraken.utils.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class NGOService implements IService<NgoDTO, Boolean> {
@@ -47,7 +45,9 @@ public class NGOService implements IService<NgoDTO, Boolean> {
                     ngo.getName(),
                     ngo.getEmail(),
                     ngo.getPassword(),
-                    this.registerAddressUseCase.execute(newAddress)
+                    this.registerAddressUseCase.execute(newAddress),
+                    ngo.getUserType(),
+                    ngo.isConnect()
             );
 
             userRegister = this.registerUserValidateUseCase.execute(newUser);
@@ -72,20 +72,17 @@ public class NGOService implements IService<NgoDTO, Boolean> {
 
         if (iNGORepository.existsById(id)) {
 
-        try {
+            try {
 
-            newNGO.setId(id);
-            this.create(newNGO);
+                newNGO.setId(id);
+                this.create(newNGO);
 
-        } catch(Exception e) {
+            } catch(Exception e) {
+
+            }
 
         }
-
-
-        }
-
         return false;
-
     }
 
     @Override

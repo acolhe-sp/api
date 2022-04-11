@@ -2,9 +2,13 @@ package com.sptech.apikraken.dto;
 
 import com.sptech.apikraken.entity.Category;
 
+import javax.validation.constraints.NotBlank;
+
 public class CategoryDTO {
 
     private Integer id;
+
+    @NotBlank
     private String description;
 
     public CategoryDTO(Integer id, String description) {

@@ -1,36 +1,58 @@
 package com.sptech.apikraken.dto;
 
 import com.sptech.apikraken.entity.User;
+import com.sptech.apikraken.utils.enums.UserTypeEnum;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class UserDTO {
 
     private Integer id;
+
     private String img;
+
+    @NotBlank
+    @Length(max = 40, message = "Nome muito grande")
     private String name;
+
+    @Email
     private String email;
+
+    @Length(min = 8, max = 20, message = "Senha inválida")
     private String password;
+
+    @NotNull
     private AddressDTO addressDTO;
 
-    public UserDTO(String img, String name, String email, String password, AddressDTO addressDTO) {
+    @NotNull
+    private UserTypeEnum userType;
+
+    private boolean connect;
+
+    public UserDTO(Integer id, String img, String name, String email, String password, AddressDTO addressDTO, UserTypeEnum userType, boolean hasConnect) {
+        this.id = id;
         this.img = img;
         this.name = name;
         this.email = email;
         this.password = password;
         this.addressDTO = addressDTO;
-    }
-
-    public UserDTO(Integer id, String img, String name, String email, String password, AddressDTO addressDTO) {
-        this(img, name, email, password, addressDTO);
-        this.id = id;
+        this.userType = userType;
+        this.connect = hasConnect;
     }
 
     public UserDTO(User user) {
         this(
+                user.getId(),
                 user.getImg(),
                 user.getName(),
                 user.getEmail(),
                 user.getPassword(),
-                new AddressDTO(user.getAddress())
+                new AddressDTO(user.getAddress()),
+                user.getUserType(),
+                user.isConnect()
         );
     }
 
@@ -82,6 +104,22 @@ public class UserDTO {
         this.addressDTO = addressDTO;
     }
 
+    public UserTypeEnum getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserTypeEnum userType) {
+        this.userType = userType;
+    }
+
+    public boolean isConnect() {
+        return connect;
+    }
+
+    public void setConnect(boolean connect) {
+        this.connect = connect;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -91,6 +129,8 @@ public class UserDTO {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", addressDTO=" + addressDTO +
+                ", userType=" + userType +
+                ", hasConnect=" + connect +
                 '}';
     }
 }

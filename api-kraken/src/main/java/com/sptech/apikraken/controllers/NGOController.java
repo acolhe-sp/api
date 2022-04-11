@@ -48,7 +48,13 @@ public class NGOController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteNGO(@PathVariable Integer id) {
 
-        ngoService.delete(id);
+        try {
+            ngoService.delete(id);
+            ResponseEntity.status(201).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
+
         return ResponseEntity.status(404).build();
     }
 
