@@ -15,7 +15,8 @@ public class UserController {
     @Autowired
     private IUserRepository iUserRepository;
 
-    @Autowired private LogonUserValidateUseCase logonUserValidateUseCase;
+    @Autowired
+    private LogonUserValidateUseCase logonUserValidateUseCase;
 
     @GetMapping
     public ResponseEntity listUsers(){
