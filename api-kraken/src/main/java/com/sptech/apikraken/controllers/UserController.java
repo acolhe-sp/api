@@ -5,7 +5,6 @@ import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.repository.IUserRepository;
 import com.sptech.apikraken.useCases.users.LogonUserValidateUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +28,6 @@ public class UserController {
     }
 
     @PostMapping("/logon")
-
     public ResponseEntity logon(@RequestBody String email, @RequestBody String pass) {
 
         User user = iUserRepository.findByEmailAndPassword(email, pass);

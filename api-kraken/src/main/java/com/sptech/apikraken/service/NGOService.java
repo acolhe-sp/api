@@ -78,7 +78,7 @@ public class NGOService implements IService<NgoDTO, Boolean> {
                 this.create(newNGO);
 
             } catch(Exception e) {
-
+                throw new Error("Erro ao atualizar"+e);
             }
 
         }
@@ -99,7 +99,6 @@ public class NGOService implements IService<NgoDTO, Boolean> {
     }
 
     public ListaObj<NGO> getAll() {
-
-        return (ListaObj<NGO>) iNGORepository.findAll();
+        return new ListaObj<NGO>(iNGORepository.findAll());
     }
 }

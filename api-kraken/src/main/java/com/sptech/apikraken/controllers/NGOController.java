@@ -17,6 +17,8 @@ public class NGOController {
     @GetMapping
     public ResponseEntity listNGOs() {
 
+        if (ngoService.getAll().getTamanho() == 0) return ResponseEntity.status(204).build();
+
         return ResponseEntity.status(200).body(ngoService.getAll());
 
     }
@@ -26,8 +28,7 @@ public class NGOController {
 
         try {
 
-            ngoService.create(ngo);
-            return ResponseEntity.status(201).build();
+            return ResponseEntity.status(201).body(ngoService.create(ngo));
 
         } catch(Exception e) {
             return ResponseEntity.status(404).build();
@@ -50,12 +51,11 @@ public class NGOController {
 
         try {
             ngoService.delete(id);
-            ResponseEntity.status(201).build();
+            return ResponseEntity.status(201).build();
         } catch (Exception e) {
             return ResponseEntity.status(404).build();
         }
 
-        return ResponseEntity.status(404).build();
     }
 
 }

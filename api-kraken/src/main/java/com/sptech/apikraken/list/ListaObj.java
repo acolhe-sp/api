@@ -1,5 +1,7 @@
 package com.sptech.apikraken.list;
 
+import java.util.List;
+
 public class ListaObj <T> {
 
     private T[] vetor;
@@ -8,6 +10,16 @@ public class ListaObj <T> {
     public ListaObj(int tamanho) {
         vetor = (T[]) new Object[tamanho];
         nroElem = 0;
+    }
+
+    public ListaObj(List<T> lista) {
+
+        vetor = (T[]) new Object[lista.size()];
+        nroElem = 0;
+
+        for (T obj: lista) {
+            adiciona(obj);
+        }
     }
 
     public void adiciona(T elemento) {
