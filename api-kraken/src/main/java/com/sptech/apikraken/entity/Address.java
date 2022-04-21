@@ -48,6 +48,8 @@ public class Address {
         this.id = id;
     }
 
+    public Address() {}
+
     public Integer getId() {
         return id;
     }
