@@ -25,6 +25,8 @@ public class AddressDTO {
 
     private String complement;
 
+    public AddressDTO() {}
+
     public AddressDTO(String state, String district, String cep, String street, String number, String complement) {
         this.state = state;
         this.district = district;

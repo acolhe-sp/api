@@ -7,9 +7,11 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 public class UserDTO {
 
+    @Positive
     private Integer id;
 
     private String img;
@@ -31,6 +33,8 @@ public class UserDTO {
     private UserTypeEnum userType;
 
     private boolean connect;
+
+    public UserDTO() {}
 
     public UserDTO(Integer id, String img, String name, String email, String password, AddressDTO addressDTO, UserTypeEnum userType, boolean hasConnect) {
         this.id = id;

@@ -16,7 +16,10 @@ public class RegisterUserValidateUseCase implements IUseCase<User, User> {
     public User execute(User user) {
 
         if (iUserRepository.findByEmail(user.getEmail()).isEmpty()) {
-            return iUserRepository.save(user);
+
+            iUserRepository.save(user);
+            return user;
+
         }
 
         return null;

@@ -8,21 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RegisterDonorValidateUseCase implements IUseCase<Donor, Donor> {
+public class RegisterDonorValidateUseCase implements IUseCase<Donor, Boolean> {
 
     @Autowired
     private IDonorRepository iDonorRepository;
 
     @Override
-    public Donor execute(Donor donor) {
+    public Boolean execute(Donor donor) {
 
         if (iDonorRepository.findByCpf(donor.getCpf()).isEmpty()) {
 
-            return iDonorRepository.save(donor);
+            iDonorRepository.save(donor);
+            return true;
 
         }
 
-        return null;
+        return false;
     }
 
 

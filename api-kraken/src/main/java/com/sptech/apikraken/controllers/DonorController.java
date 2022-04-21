@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/donors")
 public class DonorController {
@@ -23,7 +25,7 @@ public class DonorController {
     }
 
     @PostMapping
-    public ResponseEntity registerDonor(@RequestBody DonorDTO donor){
+    public ResponseEntity registerDonor(@RequestBody @Valid DonorDTO donor){
         try {
 
             return ResponseEntity.status(201).body(donorService.create(donor));
@@ -39,9 +41,9 @@ public class DonorController {
     {
         try {
 
-            Donor donor = donorService.update(id, newDonor);
+            boolean updated = donorService.update(id, newDonor);
 
-            if (donor != null) return ResponseEntity.status(201).body(donor);
+            if (updated) return ResponseEntity.status(201).build();
 
             return ResponseEntity.status(400).build();
 

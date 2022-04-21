@@ -17,7 +17,6 @@ public class User {
     private Integer id;
 
     @Column(name = "img_user")
-    @Length(min = 5, message = "Imagem inválida")
     private String img;
 
     @Column(name = "name_user")

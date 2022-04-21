@@ -16,6 +16,8 @@ public class DonorDTO extends UserDTO{
     @CPF
     private String cpf;
 
+    public DonorDTO() {}
+
     public DonorDTO(Donor donor) {
         super(donor.getUser());
         this.rg = donor.getRg();

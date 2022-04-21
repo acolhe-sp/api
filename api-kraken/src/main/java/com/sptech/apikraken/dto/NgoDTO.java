@@ -16,6 +16,7 @@ public class NgoDTO extends UserDTO{
     @NotNull
     private Category category;
 
+    public NgoDTO() {}
 
     public NgoDTO(NGO ngo) {
         super(ngo.getUser());
