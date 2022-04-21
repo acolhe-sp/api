@@ -1,5 +1,6 @@
 package com.sptech.apikraken.controllers;
 
+import com.sptech.apikraken.dto.LogonDTO;
 import com.sptech.apikraken.dto.PayloadRetornoLogon;
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.repository.IUserRepository;
@@ -29,15 +30,17 @@ public class UserController {
     }
 
     @PostMapping("/logon")
-    public ResponseEntity logon(@RequestBody String email, @RequestBody String pass) {
+    public ResponseEntity logon(@RequestBody LogonDTO logonDTO) {
 
-        User user = iUserRepository.findByEmailAndPassword(email, pass);
 
-        if(user.getId() == null) return ResponseEntity.status(404).build();
+        User user = iUserRepository
+                .findByEmailAndPassword(logonDTO.getEmail(), logonDTO.getPassword());
+
+        if(user == null) return ResponseEntity.status(404).build();
 
         PayloadRetornoLogon response = this.logonUserValidateUseCase.execute(user);
 
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.status(200).build();
 
     }
 
