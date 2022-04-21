@@ -3,6 +3,7 @@ package com.sptech.apikraken.dto;
 import com.sptech.apikraken.entity.Address;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 
 public class AddressDTO {
@@ -13,7 +14,7 @@ public class AddressDTO {
     @NotBlank
     private String district;
 
-    @NotBlank
+    @Pattern(regexp = "(^[0-9]{5})-?([0-9]{3}$)", message = "CEP inválido")
     private String cep;
 
     @NotBlank

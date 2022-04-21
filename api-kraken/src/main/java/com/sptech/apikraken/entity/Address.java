@@ -3,6 +3,7 @@ package com.sptech.apikraken.entity;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "tb_address")
@@ -21,6 +22,7 @@ public class Address {
     private String district;
 
     @Column(name = "cep_address")
+    @Pattern(regexp = "(^[0-9]{5})-?([0-9]{3}$)")
     private String cep;
 
     @Column(name = "street_address")

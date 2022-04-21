@@ -4,13 +4,11 @@ package com.sptech.apikraken.dto;
 import com.sptech.apikraken.entity.Donor;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public class DonorDTO extends UserDTO{
 
-    @NotBlank
-    @Pattern(regexp = "/(\\d{1,2})(\\d{3})(\\d{3})(\\d{1})$/")
+    @Pattern(regexp = "(^\\d{1,2}).?(\\d{3}).?(\\d{3})-?(\\d{1}|X|x$)", message = "RG inválido")
     private String rg;
 
     @CPF
