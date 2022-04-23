@@ -1,6 +1,7 @@
 package com.sptech.apikraken.service;
 
-import com.sptech.apikraken.dto.DonorDTO;
+import com.sptech.apikraken.dto.request.donor.DonorDTO;
+import com.sptech.apikraken.dto.request.donor.UpdateDocumentsDonorDTO;
 import com.sptech.apikraken.entity.Address;
 import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.entity.User;
@@ -68,13 +69,22 @@ public class DonorService implements IService<DonorDTO, Boolean> {
         return false;
     }
 
-    @Override
     public Boolean update(Integer id, DonorDTO newDonor) {
         if (iDonorRepository.existsById(id)) {
             newDonor.setId(id);
             return this.create(newDonor);
         };
 
+        return false;
+    }
+
+    public Boolean updateDocs(Integer id, UpdateDocumentsDonorDTO newDocs) {
+        if (iDonorRepository.existsById(id)) {
+
+            iDonorRepository.updateDocumentos(id, newDocs.getCpf(), newDocs.getRg());
+            return true;
+
+        };
         return false;
     }
 

@@ -1,12 +1,13 @@
-package com.sptech.apikraken.dto;
+package com.sptech.apikraken.dto.request.ngo;
 
+import com.sptech.apikraken.dto.request.UserDTO;
 import com.sptech.apikraken.entity.Category;
 import com.sptech.apikraken.entity.NGO;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.validation.constraints.NotNull;
 
-public class NgoDTO extends UserDTO{
+public class NgoDTO extends UserDTO {
 
     @CNPJ
     private String cnpj;

@@ -1,6 +1,7 @@
 package com.sptech.apikraken.service;
 
-import com.sptech.apikraken.dto.NgoDTO;
+import com.sptech.apikraken.dto.request.ngo.NgoDTO;
+import com.sptech.apikraken.dto.request.ngo.UpdateDescriptionNgoDTO;
 import com.sptech.apikraken.entity.Address;
 import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.entity.User;
@@ -15,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NGOService implements IService<NgoDTO, Boolean> {
+public class NGOService implements IService<NgoDTO, NGO> {
 
     @Autowired private INGORepository iNGORepository;
     @Autowired private IUserRepository iUserRepository;
@@ -25,7 +26,7 @@ public class NGOService implements IService<NgoDTO, Boolean> {
     @Autowired private RegisterAddressUseCase registerAddressUseCase;
 
     @Override
-    public Boolean create(NgoDTO ngo) {
+    public NGO create(NgoDTO ngo) {
 
         User userRegister = null;
 
@@ -64,10 +65,9 @@ public class NGOService implements IService<NgoDTO, Boolean> {
             throw new Error("NGOService - Erro ao registrar usuário");
         }
 
-        return false;
+        return null;
     }
 
-    @Override
     public Boolean update(Integer id, NgoDTO newNGO) {
 
         if (iNGORepository.existsById(id)) {
@@ -81,6 +81,21 @@ public class NGOService implements IService<NgoDTO, Boolean> {
                 throw new Error("Erro ao atualizar"+e);
             }
 
+        }
+        return false;
+    }
+
+    public Boolean updateDescription(UpdateDescriptionNgoDTO newDesc) {
+
+        if (iNGORepository.existsById(newDesc.getId())) {
+            try {
+
+                iNGORepository.updateDescription(newDesc.getId(), newDesc.getDescription());
+                return true;
+
+            } catch(Exception e) {
+                throw new Error("NGOService - Erro ao atualizar descrição: "+e);
+            }
         }
         return false;
     }

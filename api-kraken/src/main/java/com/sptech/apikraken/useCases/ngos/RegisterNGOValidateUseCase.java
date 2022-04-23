@@ -7,23 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RegisterNGOValidateUseCase implements IUseCase<NGO, Boolean> {
+public class RegisterNGOValidateUseCase implements IUseCase<NGO, NGO> {
 
     @Autowired
     private INGORepository iNgoRepository;
 
     @Override
-    public Boolean execute(NGO ngo) {
+    public NGO execute(NGO ngo) {
+        try {
 
-        if(iNgoRepository.findByCnpj(ngo.getCnpj()).isEmpty()) {
+            if(!iNgoRepository.findByCnpj(ngo.getCnpj()).isEmpty()) throw new Error("WARN-validation-cnpj-exist");
 
-            iNgoRepository.save(ngo);
-            return true;
+            return iNgoRepository.save(ngo);
 
+        } catch (Exception e) {
+            throw new Error("Error-save-ngo: "+e);
         }
-
-        return false;
-
     }
 
 }

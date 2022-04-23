@@ -1,12 +1,13 @@
-package com.sptech.apikraken.dto;
+package com.sptech.apikraken.dto.request.donor;
 
 
+import com.sptech.apikraken.dto.request.UserDTO;
 import com.sptech.apikraken.entity.Donor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Pattern;
 
-public class DonorDTO extends UserDTO{
+public class DonorDTO extends UserDTO {
 
     @Pattern(regexp = "(^\\d{1,2}).?(\\d{3}).?(\\d{3})-?(\\d{1}|X|x$)", message = "RG inválido")
     private String rg;

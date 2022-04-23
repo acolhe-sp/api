@@ -1,24 +1,21 @@
-package com.sptech.apikraken.dto;
-
-import com.sptech.apikraken.entity.Category;
+package com.sptech.apikraken.dto.request.ngo;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
-public class CategoryDTO {
+public class UpdateDescriptionNgoDTO {
 
+    @Positive
     private Integer id;
 
     @NotBlank
     private String description;
 
-    public CategoryDTO(Integer id, String description) {
+    public UpdateDescriptionNgoDTO() {}
+
+    public UpdateDescriptionNgoDTO(Integer id, String description) {
         this.id = id;
         this.description = description;
-    }
-
-    public CategoryDTO(Category category) {
-        this.id = category.getId();
-        this.description = category.getDescription();
     }
 
     public Integer getId() {

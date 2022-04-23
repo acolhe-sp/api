@@ -1,10 +1,10 @@
 package com.sptech.apikraken.controllers;
 
-import com.sptech.apikraken.dto.NgoDTO;
+import com.sptech.apikraken.dto.request.ngo.NgoDTO;
+import com.sptech.apikraken.dto.request.ngo.UpdateDescriptionNgoDTO;
 import com.sptech.apikraken.service.NGOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,11 +38,10 @@ public class NGOController {
 
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity updateNGO(@PathVariable Integer id,
-                                    @RequestBody NgoDTO newNGO)
+    @PutMapping("/description")
+    public ResponseEntity updateDescNGO(@RequestBody @Valid UpdateDescriptionNgoDTO newNGO)
     {
-        boolean updated = ngoService.update(id, newNGO);
+        boolean updated = ngoService.updateDescription(newNGO);
 
         return updated ? ResponseEntity.status(201).build()
                         : ResponseEntity.status(404).build();
@@ -51,12 +50,10 @@ public class NGOController {
     @DeleteMapping("/{id}")
     public ResponseEntity deleteNGO(@PathVariable Integer id) {
 
-        try {
-            ngoService.delete(id);
-            return ResponseEntity.status(201).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(404).build();
-        }
+        boolean deleted = ngoService.delete(id);
+
+        return deleted ? ResponseEntity.status(201).build()
+                        : ResponseEntity.status(404).build();
 
     }
 

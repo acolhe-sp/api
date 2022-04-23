@@ -1,7 +1,7 @@
 package com.sptech.apikraken.controllers;
 
-import com.sptech.apikraken.dto.LogonDTO;
-import com.sptech.apikraken.dto.PayloadRetornoLogon;
+import com.sptech.apikraken.dto.request.LogonDTO;
+import com.sptech.apikraken.dto.response.PayloadRetornoLogon;
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.repository.IUserRepository;
 import com.sptech.apikraken.useCases.users.LogonUserValidateUseCase;

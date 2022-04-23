@@ -74,7 +74,7 @@ public class CSVService {
         }
 
         try {
-            System.out.printf("%-10s %-15s %-20s %-12s %10s %-11s %9s %15s %15s %15s %-6s",
+            System.out.printf("%-10s %-15s %-20s %-12s %10s %-11s %2s %15s %15s %12s %23s\n",
                     "ID USUARIO", "IMAGEM", "EMAIL", "TIPO USUARIO", "CONECTADO?",
                     "ID ENDEREÇO", "CEP", "ESTADO", "CIDADE", "RUA", "NUMBER");
 
@@ -91,7 +91,7 @@ public class CSVService {
                 String rua = in.next();
                 String numero = in.next();
 
-                System.out.printf("%-10d %-15s %-20s %-12s %10b %-11d %9s %15s %15s %15s %-6s\n",
+                System.out.printf("%10d %-15s %-20s %-12s %3b %16d %8s %12s %15s %21s %11s\n",
                         id, img, email, userType, connect,
                         idEndereco, cep, estado, cidade, rua, numero);
             }

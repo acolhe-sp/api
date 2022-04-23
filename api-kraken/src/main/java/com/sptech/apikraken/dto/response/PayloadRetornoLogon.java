@@ -1,4 +1,4 @@
-package com.sptech.apikraken.dto;
+package com.sptech.apikraken.dto.response;
 
 import com.sptech.apikraken.entity.User;
 

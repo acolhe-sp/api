@@ -1,4 +1,4 @@
-package com.sptech.apikraken.dto;
+package com.sptech.apikraken.dto.request;
 
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.utils.enums.UserTypeEnum;
