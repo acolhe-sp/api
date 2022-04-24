@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DonorService implements IService<DonorDTO, Boolean> {
+public class DonorService implements IService<DonorDTO, Donor> {
 
     @Autowired
     private IDonorRepository iDonorRepository;
@@ -28,7 +28,7 @@ public class DonorService implements IService<DonorDTO, Boolean> {
 
 
     @Override
-    public Boolean create(DonorDTO donor) {
+    public Donor create(DonorDTO donor) {
 
         User userRegister = null;
 
@@ -66,22 +66,22 @@ public class DonorService implements IService<DonorDTO, Boolean> {
             throw new Error("DonorService - Erro ao registrar usuário");
         }
 
-        return false;
+        return null;
     }
 
-    public Boolean update(Integer id, DonorDTO newDonor) {
+    public Donor update(Integer id, DonorDTO newDonor) {
         if (iDonorRepository.existsById(id)) {
             newDonor.setId(id);
             return this.create(newDonor);
         };
 
-        return false;
+        return null;
     }
 
     public Boolean updateDocs(Integer id, UpdateDocumentsDonorDTO newDocs) {
         if (iDonorRepository.existsById(id)) {
 
-            iDonorRepository.updateDocumentos(id, newDocs.getCpf(), newDocs.getRg());
+            iDonorRepository.updateDocuments(id, newDocs.getCpf(), newDocs.getRg());
             return true;
 
         };

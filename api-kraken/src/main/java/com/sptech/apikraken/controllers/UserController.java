@@ -1,6 +1,6 @@
 package com.sptech.apikraken.controllers;
 
-import com.sptech.apikraken.dto.request.LogonDTO;
+import com.sptech.apikraken.dto.request.logon.LogonDTO;
 import com.sptech.apikraken.dto.response.PayloadRetornoLogon;
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.repository.IUserRepository;

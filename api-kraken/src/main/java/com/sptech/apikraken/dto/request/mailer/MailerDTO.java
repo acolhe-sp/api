@@ -1,4 +1,4 @@
-package com.sptech.apikraken.dto.request;
+package com.sptech.apikraken.dto.request.mailer;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

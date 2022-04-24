@@ -21,12 +21,10 @@ public class NGOController {
         if (ngoService.getAll().getTamanho() == 0) return ResponseEntity.status(204).build();
 
         return ResponseEntity.status(200).body(ngoService.getAll());
-
     }
 
     @PostMapping
     public ResponseEntity registerNGO(@RequestBody @Valid NgoDTO ngo){
-
         try {
 
             return ResponseEntity.status(201).body(ngoService.create(ngo));
@@ -34,8 +32,6 @@ public class NGOController {
         } catch(Exception e) {
             return ResponseEntity.status(404).build();
         }
-
-
     }
 
     @PutMapping("/description")

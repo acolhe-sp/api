@@ -1,5 +1,6 @@
-package com.sptech.apikraken.dto.request;
+package com.sptech.apikraken.dto.request.user;
 
+import com.sptech.apikraken.dto.request.address.AddressDTO;
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.utils.enums.UserTypeEnum;
 import org.hibernate.validator.constraints.Length;

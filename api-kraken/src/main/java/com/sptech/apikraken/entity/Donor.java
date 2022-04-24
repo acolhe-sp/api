@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_donor")
@@ -28,12 +30,30 @@ public class Donor {
     @NotNull
     private User user;
 
+    @ManyToMany
+    @JoinTable(
+            name = "follow_ngo_donor",
+            joinColumns = @JoinColumn(name = "id_donor"),
+            inverseJoinColumns = @JoinColumn(name = "id_ngo")
+    )
+    private List<NGO> ngos_follow;
+
+    @ManyToMany
+    @JoinTable(
+            name = "notifications",
+            joinColumns = @JoinColumn(name = "id_donor"),
+            inverseJoinColumns = @JoinColumn(name = "id_post")
+    )
+    private List<Post> notifications;
+
     public Donor() {}
 
     public Donor(String rg, String cpf, User user) {
         this.rg = rg;
         this.cpf = cpf;
         this.user = user;
+        this.ngos_follow = new ArrayList<>();
+        this.notifications = new ArrayList<>();
     }
 
     public Donor(Integer id, String rg, String cpf, User user) {
@@ -79,6 +99,22 @@ public class Donor {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<NGO> getNgos_follow() {
+        return ngos_follow;
+    }
+
+    public void setNgos_follow(List<NGO> ngos_follow) {
+        this.ngos_follow = ngos_follow;
+    }
+
+    public List<Post> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Post> notifications) {
+        this.notifications = notifications;
     }
 
     @Override

@@ -4,6 +4,8 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_ngo")
@@ -30,6 +32,9 @@ public class NGO {
     @NotNull
     private User user;
 
+    @ManyToMany(mappedBy = "ngos_follow")
+    private List<Donor> followers;
+
     public NGO() {}
 
     public NGO(String cnpj, String description, Category category, User user) {
@@ -37,6 +42,7 @@ public class NGO {
         this.description = description;
         this.category = category;
         this.user = user;
+        this.followers = new ArrayList<>();
     }
 
     public NGO(Integer id, String cnpj, String description, Category category, User user) {
@@ -82,6 +88,10 @@ public class NGO {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Donor> getFollowers() {
+        return this.followers;
     }
 
     @Override

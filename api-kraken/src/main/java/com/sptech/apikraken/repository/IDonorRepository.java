@@ -1,6 +1,7 @@
 package com.sptech.apikraken.repository;
 
 import com.sptech.apikraken.entity.Donor;
+import com.sptech.apikraken.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +17,12 @@ public interface IDonorRepository extends JpaRepository<Donor, Integer> {
 
     @Transactional
     @Modifying
-    @Query("update tb_donor d set d.cpf_donor = ?2, d.rg_donor = ?3 where ngo.id_ngo = ?1")
-    void updateDocumentos(Integer id, String cpf, String rg);
+    @Query("update tb_donor d set d.cpf_donor = ?2, d.rg_donor = ?3 where d.id_donor = ?1")
+    void updateDocuments(Integer id, String cpf, String rg);
+
+    @Transactional
+    @Modifying
+    @Query("update tb_donor d set d.notifications = ?2 where d.id_donor = ?1")
+    void updateNotifications(Integer id, List<Post> notifications);
 
 }

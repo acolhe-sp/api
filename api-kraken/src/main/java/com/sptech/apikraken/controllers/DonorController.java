@@ -37,7 +37,7 @@ public class DonorController {
 
     @PutMapping("/{id}/documents")
     public ResponseEntity updateDocsDonor(@PathVariable int id,
-                                            @RequestBody UpdateDocumentsDonorDTO docsDonor)
+                                            @RequestBody @Valid UpdateDocumentsDonorDTO docsDonor)
     {
         boolean updated = donorService.updateDocs(id, docsDonor);
 

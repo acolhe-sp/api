@@ -1,6 +1,6 @@
 package com.sptech.apikraken.dto.request.ngo;
 
-import com.sptech.apikraken.dto.request.UserDTO;
+import com.sptech.apikraken.dto.request.user.UserDTO;
 import com.sptech.apikraken.entity.Category;
 import com.sptech.apikraken.entity.NGO;
 import org.hibernate.validator.constraints.br.CNPJ;

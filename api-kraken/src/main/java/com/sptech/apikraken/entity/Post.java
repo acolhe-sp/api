@@ -1,5 +1,6 @@
 package com.sptech.apikraken.entity;
 
+import com.sptech.apikraken.dto.request.post.PostDTO;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_post")
@@ -18,9 +20,9 @@ public class Post {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_user", referencedColumnName = "id_user")
+    @JoinColumn(name = "fk_ngo", referencedColumnName = "id_ngo")
     @NotNull
-    private User user;
+    private NGO ngo;
 
     @Column(name = "description_post")
     private String description;
@@ -37,20 +39,31 @@ public class Post {
     @PositiveOrZero
     private int amountEvaluate;
 
+    @ManyToMany(mappedBy = "notifications")
+    private List<Donor> users_to_notify;
+
     public Post() {}
 
-    public Post(Integer id, User user, String description, String img, int amountEvaluate) {
-        this.id = id;
-        this.user = user;
+    public Post(NGO ngo, String description, String img, int amountEvaluate) {
+        this.ngo = ngo;
         this.description = description;
         this.img = img;
         this.dateTime = LocalDateTime.now();
         this.amountEvaluate = amountEvaluate;
     }
 
-    public Post(Integer id, User user, String description, String img, LocalDateTime dateTime, int amountEvaluate) {
-        this(id, user, description, img, amountEvaluate);
+    public Post(Integer id, NGO ngo, String description, String img, int amountEvaluate) {
+        this(ngo, description, img, amountEvaluate);
+        this.id = id;
+    }
+
+    public Post(Integer id, NGO ngo, String description, String img, LocalDateTime dateTime, int amountEvaluate) {
+        this(id, ngo, description, img, amountEvaluate);
         this.dateTime = dateTime;
+    }
+
+    public Post(PostDTO post) {
+        this(post.getNgo(), post.getDescription(), post.getImg(), post.getAmountEvaluate());
     }
 
     public Integer getId() {
@@ -61,12 +74,12 @@ public class Post {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public NGO getNgo() {
+        return ngo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setNgo(NGO ngo) {
+        this.ngo = ngo;
     }
 
     public String getDescription() {
@@ -101,11 +114,19 @@ public class Post {
         this.amountEvaluate = amountEvaluate;
     }
 
+    public List<Donor> getUsers_to_notify() {
+        return users_to_notify;
+    }
+
+    public void setUsers_to_notify(List<Donor> users_to_notify) {
+        this.users_to_notify = users_to_notify;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
                 "id=" + id +
-                ", user=" + user +
+                ", ngo=" + ngo +
                 ", description='" + description + '\'' +
                 ", img='" + img + '\'' +
                 ", dateTime=" + dateTime +

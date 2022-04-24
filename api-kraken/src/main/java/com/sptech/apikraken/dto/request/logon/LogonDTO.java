@@ -1,4 +1,4 @@
-package com.sptech.apikraken.dto.request;
+package com.sptech.apikraken.dto.request.logon;
 
 public class LogonDTO {
     private String email;
