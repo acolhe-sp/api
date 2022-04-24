@@ -7,6 +7,7 @@ import com.sptech.apikraken.list.ListaObj;
 import com.sptech.apikraken.repository.IDonorRepository;
 import com.sptech.apikraken.repository.IPostRepository;
 import com.sptech.apikraken.utils.interfaces.IService;
+import com.sptech.apikraken.utils.interfaces.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,11 +26,11 @@ public class PostService implements IService<PostDTO, Post>, NotificationService
 
         try {
 
-            Post postagem = new Post(post);
+            Post postagem = iPostRepository.save(new Post(post));
 
-            iPostRepository.save(postagem);
-
-            this.notificate(postagem.getNgo().getFollowers(), postagem);
+            if (postagem.getNgo().getFollowers().size() > 0) {
+                this.notificate(postagem.getNgo().getFollowers(), postagem);
+            }
 
             return postagem;
 

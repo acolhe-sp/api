@@ -17,12 +17,12 @@ public interface IDonorRepository extends JpaRepository<Donor, Integer> {
 
     @Transactional
     @Modifying
-    @Query("update tb_donor d set d.cpf_donor = ?2, d.rg_donor = ?3 where d.id_donor = ?1")
+    @Query("update Donor d set d.cpf = ?2, d.rg = ?3 where d.id = ?1")
     void updateDocuments(Integer id, String cpf, String rg);
 
     @Transactional
     @Modifying
-    @Query("update tb_donor d set d.notifications = ?2 where d.id_donor = ?1")
+    @Query("update Donor d set d.notifications = ?2 where d.id = ?1")
     void updateNotifications(Integer id, List<Post> notifications);
 
 }

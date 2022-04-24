@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Donor {
     private Integer id;
 
     @Column(name = "rg_donor")
-    @Length(max = 12)
+    @Pattern(regexp = "(^\\d{1,2}).?(\\d{3}).?(\\d{3})-?(\\d{1}|X|x$)", message = "RG inválido")
     private String rg;
 
     @Column(name = "cpf_donor")
@@ -30,19 +31,14 @@ public class Donor {
     @NotNull
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "follow_ngo_donor",
-            joinColumns = @JoinColumn(name = "id_donor"),
-            inverseJoinColumns = @JoinColumn(name = "id_ngo")
-    )
+    @ManyToMany(mappedBy = "followers")
     private List<NGO> ngos_follow;
 
     @ManyToMany
     @JoinTable(
-            name = "notifications",
-            joinColumns = @JoinColumn(name = "id_donor"),
-            inverseJoinColumns = @JoinColumn(name = "id_post")
+            name = "notifications_post_donor",
+            joinColumns = @JoinColumn(name = "fk_donor", referencedColumnName = "id_donor"),
+            inverseJoinColumns = @JoinColumn(name = "fk_post", referencedColumnName = "id_post")
     )
     private List<Post> notifications;
 

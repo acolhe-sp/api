@@ -91,8 +91,11 @@ public class DonorService implements IService<DonorDTO, Donor> {
     @Override
     public Boolean delete(Integer id) {
         if (iDonorRepository.existsById(id)) {
+
+            Donor donor = iDonorRepository.getById(id);
+
             iDonorRepository.deleteById(id);
-            iUserRepository.deleteById(id);
+            iUserRepository.deleteById(donor.getUser().getId());
 
             return true;
         }

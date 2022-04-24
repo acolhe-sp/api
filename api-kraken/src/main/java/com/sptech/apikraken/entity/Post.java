@@ -40,7 +40,7 @@ public class Post {
     private int amountEvaluate;
 
     @ManyToMany(mappedBy = "notifications")
-    private List<Donor> users_to_notify;
+    private List<Donor> usersToNotify;
 
     public Post() {}
 
@@ -114,12 +114,12 @@ public class Post {
         this.amountEvaluate = amountEvaluate;
     }
 
-    public List<Donor> getUsers_to_notify() {
-        return users_to_notify;
+    public List<Donor> getUsersToNotify() {
+        return usersToNotify;
     }
 
-    public void setUsers_to_notify(List<Donor> users_to_notify) {
-        this.users_to_notify = users_to_notify;
+    public void setUsersToNotify(List<Donor> usersToNotify) {
+        this.usersToNotify = usersToNotify;
     }
 
     @Override

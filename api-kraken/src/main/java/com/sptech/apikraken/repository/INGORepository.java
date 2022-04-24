@@ -15,8 +15,8 @@ public interface INGORepository extends JpaRepository<NGO, Integer> {
     List<NGO> findByCnpj(String cnpj);
 
     @Transactional
-    @Modifying
-    @Query("update tb_ngo ngo set ngo.description_ngo = ?2 where ngo.id_ngo = ?1")
+    @Modifying(flushAutomatically = true)
+    @Query("update NGO n set n.description = ?2 where n.id = ?1")
     void updateDescription(Integer id, String newDesc);
 
 }

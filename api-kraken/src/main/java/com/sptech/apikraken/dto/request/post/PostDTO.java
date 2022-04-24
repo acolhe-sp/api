@@ -2,6 +2,7 @@ package com.sptech.apikraken.dto.request.post;
 
 import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.entity.NGO;
+import com.sptech.apikraken.entity.Post;
 
 import javax.validation.constraints.*;
 import java.time.LocalDateTime;
@@ -9,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostDTO {
+
+    @Positive
+    private Integer id;
 
     @NotNull
     private NGO ngo;
@@ -24,7 +28,9 @@ public class PostDTO {
     @PositiveOrZero
     private int amountEvaluate;
 
-    private List<Donor> users_to_notify;
+    private List<Donor> usersToNotify;
+
+    public PostDTO() {}
 
     public PostDTO(NGO ngo, String description, String img, LocalDateTime dateTime, int amountEvaluate) {
         this.ngo = ngo;
@@ -32,7 +38,32 @@ public class PostDTO {
         this.img = img;
         this.dateTime = dateTime;
         this.amountEvaluate = amountEvaluate;
-        this.users_to_notify = new ArrayList<>();
+        this.usersToNotify = new ArrayList<>();
+    }
+
+    public PostDTO(Integer id, NGO ngo, String description, String img, LocalDateTime dateTime, int amountEvaluate) {
+        this(ngo, description, img, dateTime, amountEvaluate);
+        this.id = id;
+    }
+
+    public PostDTO(Post post) {
+        this(
+                post.getId(),
+                post.getNgo(),
+                post.getDescription(),
+                post.getImg(),
+                post.getDateTime(),
+                post.getAmountEvaluate()
+        );
+        this.usersToNotify = post.getUsersToNotify();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public NGO getNgo() {
@@ -75,11 +106,11 @@ public class PostDTO {
         this.amountEvaluate = amountEvaluate;
     }
 
-    public List<Donor> getUsers_to_notify() {
-        return users_to_notify;
+    public List<Donor> getUsersToNotify() {
+        return usersToNotify;
     }
 
-    public void setUsers_to_notify(List<Donor> users_to_notify) {
-        this.users_to_notify = users_to_notify;
+    public void setUsersToNotify(List<Donor> usersToNotify) {
+        this.usersToNotify = usersToNotify;
     }
 }

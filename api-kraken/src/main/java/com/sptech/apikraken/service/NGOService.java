@@ -3,6 +3,7 @@ package com.sptech.apikraken.service;
 import com.sptech.apikraken.dto.request.ngo.NgoDTO;
 import com.sptech.apikraken.dto.request.ngo.UpdateDescriptionNgoDTO;
 import com.sptech.apikraken.entity.Address;
+import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.list.ListaObj;
@@ -102,14 +103,15 @@ public class NGOService implements IService<NgoDTO, NGO> {
 
     @Override
     public Boolean delete(Integer id) {
-
         if (iNGORepository.existsById(id)) {
+
+            NGO ngo = iNGORepository.getById(id);
+
+            iUserRepository.deleteById(ngo.getUser().getId());
             iNGORepository.deleteById(id);
-            iUserRepository.deleteById(id);
 
             return true;
         }
-
         return false;
     }
 

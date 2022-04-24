@@ -32,7 +32,12 @@ public class NGO {
     @NotNull
     private User user;
 
-    @ManyToMany(mappedBy = "ngos_follow")
+    @ManyToMany
+    @JoinTable(
+            name = "follow_ngo_donor",
+            joinColumns = @JoinColumn(name = "fk_ngo", referencedColumnName = "id_ngo"),
+            inverseJoinColumns = @JoinColumn(name = "fk_donor", referencedColumnName = "id_donor")
+    )
     private List<Donor> followers;
 
     public NGO() {}
@@ -92,6 +97,10 @@ public class NGO {
 
     public List<Donor> getFollowers() {
         return this.followers;
+    }
+
+    public void setFollowers(List<Donor> followers) {
+        this.followers = followers;
     }
 
     @Override
