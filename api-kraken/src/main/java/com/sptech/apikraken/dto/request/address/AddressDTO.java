@@ -12,6 +12,9 @@ public class AddressDTO {
     private String state;
 
     @NotBlank
+    private String city;
+
+    @NotBlank
     private String district;
 
     @Pattern(regexp = "(^[0-9]{5})-?([0-9]{3}$)", message = "CEP inválido")
@@ -28,8 +31,9 @@ public class AddressDTO {
 
     public AddressDTO() {}
 
-    public AddressDTO(String state, String district, String cep, String street, String number, String complement) {
+    public AddressDTO(String state, String city, String district, String cep, String street, String number, String complement) {
         this.state = state;
+        this.city = city;
         this.district = district;
         this.cep = cep;
         this.street = street;
@@ -40,6 +44,7 @@ public class AddressDTO {
     public AddressDTO(Address address) {
         this(
              address.getState(),
+             address.getCity(),
              address.getDistrict(),
              address.getCep(),
              address.getStreet(),
@@ -54,6 +59,14 @@ public class AddressDTO {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getDistrict() {
@@ -100,6 +113,7 @@ public class AddressDTO {
     public String toString() {
         return "AddressDTO{" +
                 "state='" + state + '\'' +
+                ", city='" + city + '\'' +
                 ", district='" + district + '\'' +
                 ", cep='" + cep + '\'' +
                 ", street='" + street + '\'' +

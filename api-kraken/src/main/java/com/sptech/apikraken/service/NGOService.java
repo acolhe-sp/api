@@ -35,6 +35,7 @@ public class NGOService implements IService<NgoDTO, NGO> {
 
             Address newAddress = new Address(
                     ngo.getAddressDTO().getState(),
+                    ngo.getAddressDTO().getCity(),
                     ngo.getAddressDTO().getDistrict(),
                     ngo.getAddressDTO().getCep(),
                     ngo.getAddressDTO().getStreet(),

@@ -18,6 +18,9 @@ public class Address {
     @Length(min = 3, message = "estate min lenght")
     private String state;
 
+    @Column(name = "city_address")
+    private String city;
+
     @Column(name = "district_address")
     private String district;
 
@@ -34,8 +37,9 @@ public class Address {
     @Column(name = "complement_address")
     private String complement;
 
-    public Address(String state, String district, String cep, String street, String number, String complement) {
+    public Address(String state, String city, String district, String cep, String street, String number, String complement) {
         this.state = state;
+        this.city = city;
         this.district = district;
         this.cep = cep;
         this.street = street;
@@ -43,8 +47,8 @@ public class Address {
         this.complement = complement;
     }
 
-    public Address(Integer id, String state, String district, String cep, String street, String number, String complement) {
-        this(state, district, cep, street, number, complement);
+    public Address(Integer id, String state, String city, String district, String cep, String street, String number, String complement) {
+        this(state, city, district, cep, street, number, complement);
         this.id = id;
     }
 
@@ -64,6 +68,14 @@ public class Address {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getDistrict() {
@@ -111,6 +123,7 @@ public class Address {
         return "Address{" +
                 "id=" + id +
                 ", state='" + state + '\'' +
+                ", city='" + city + '\'' +
                 ", district='" + district + '\'' +
                 ", cep='" + cep + '\'' +
                 ", street='" + street + '\'' +
