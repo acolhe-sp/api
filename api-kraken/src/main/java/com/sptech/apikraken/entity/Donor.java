@@ -1,6 +1,5 @@
 package com.sptech.apikraken.entity;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
