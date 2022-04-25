@@ -15,7 +15,7 @@ public class Address {
     private Integer id;
 
     @Column(name = "state_address")
-    @Length(min = 3, message = "estate min lenght")
+    @Length(max = 2, message = "Estado inválido")
     private String state;
 
     @Column(name = "city_address")

@@ -43,6 +43,8 @@ public class DonorService implements IService<DonorDTO, Donor> {
                     donor.getAddressDTO().getComplement()
             );
 
+            System.out.println("passou 1");
+
             User newUser = new User(
                     donor.getImg(),
                     donor.getName(),
@@ -53,18 +55,26 @@ public class DonorService implements IService<DonorDTO, Donor> {
                     donor.isConnect()
             );
 
+            System.out.println("passou 2");
+
             userRegister = this.registerUserValidateUseCase.execute(newUser);
+
+            System.out.println("passou 3");
 
             if (userRegister != null) {
 
+                System.out.println("passou 4");
+
                 Donor newDonor = new Donor(donor.getRg(), donor.getCpf(), userRegister);
+
+                System.out.println("passou 5");
 
                 return this.registerDonorValidateUseCase.execute(newDonor);
 
             }
 
         } catch (Exception e) {
-            throw new Error("DonorService - Erro ao registrar usuário");
+            throw new Error("DonorService - Erro ao registrar usuário: "+e.getMessage());
         }
 
         return null;

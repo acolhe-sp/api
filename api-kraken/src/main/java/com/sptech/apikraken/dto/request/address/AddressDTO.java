@@ -1,6 +1,7 @@
 package com.sptech.apikraken.dto.request.address;
 
 import com.sptech.apikraken.entity.Address;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Positive;
 public class AddressDTO {
 
     @NotBlank
+    @Length(max = 2, message = "Estado inválido")
     private String state;
 
     @NotBlank

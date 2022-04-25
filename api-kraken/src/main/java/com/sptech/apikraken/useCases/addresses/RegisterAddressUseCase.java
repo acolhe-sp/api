@@ -14,6 +14,12 @@ public class RegisterAddressUseCase implements IUseCase<Address, Address> {
 
     @Override
     public Address execute(Address address) {
-        return iAddressRepository.save(address);
+        System.out.println("entrou ad");
+
+        try {
+            return iAddressRepository.save(address);
+        } catch (Exception e) {
+            throw new Error("Error-register-address");
+        }
     }
 }
