@@ -35,6 +35,7 @@ public class DonorService implements IService<DonorDTO, Donor> {
         try {
             Address newAddress = new Address(
                     donor.getAddressDTO().getState(),
+                    donor.getAddressDTO().getCity(),
                     donor.getAddressDTO().getDistrict(),
                     donor.getAddressDTO().getCep(),
                     donor.getAddressDTO().getStreet(),
