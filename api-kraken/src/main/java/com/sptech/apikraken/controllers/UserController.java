@@ -42,7 +42,33 @@ public class UserController {
         PayloadRetornoLogon response = this.logonUserValidateUseCase.execute(user);
 
         return ResponseEntity.status(200).build();
-
     }
+
+    @PatchMapping(value = "/pic/{id}", consumes = "image/jpeg")
+    public ResponseEntity patchPic(@PathVariable int id, @RequestBody byte[] picFile) {
+
+        if (!iUserRepository.existsById(id)) return ResponseEntity.status(404).build();
+
+        User user = iUserRepository.findById(id).get();
+
+        user.setImg(picFile);
+        iUserRepository.save(user);
+
+        return ResponseEntity.status(200).build();
+    }
+
+    @GetMapping(value = "/pic/{id}", produces = "image/jpeg")
+    public ResponseEntity getPic(@PathVariable int id) {
+        if (!iUserRepository.existsById(id)) return ResponseEntity.status(404).build();
+
+        User user = iUserRepository.findById(id).get();
+
+        byte[] picFile = user.getImg();
+
+        return ResponseEntity.status(200).body(picFile);
+    }
+
+
+
 
 }
