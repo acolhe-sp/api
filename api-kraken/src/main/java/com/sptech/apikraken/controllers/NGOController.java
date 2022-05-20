@@ -2,6 +2,7 @@ package com.sptech.apikraken.controllers;
 
 import com.sptech.apikraken.dto.request.ngo.NgoDTO;
 import com.sptech.apikraken.dto.request.ngo.UpdateDescriptionNgoDTO;
+import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.service.NGOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,16 @@ public class NGOController {
         if (ngoService.getAll().getTamanho() == 0) return ResponseEntity.status(204).build();
 
         return ResponseEntity.status(200).body(ngoService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getNGOById(@PathVariable Integer id) {
+
+        NGO ngo = ngoService.getById(id);
+
+        if (ngo.getId() == null) return ResponseEntity.status(404).build();
+
+        return ResponseEntity.status(200).body(ngo);
     }
 
     @PostMapping

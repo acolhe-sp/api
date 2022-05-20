@@ -2,6 +2,7 @@ package com.sptech.apikraken.service;
 
 import com.sptech.apikraken.dto.request.post.PostDTO;
 import com.sptech.apikraken.entity.Donor;
+import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.entity.Post;
 import com.sptech.apikraken.list.ListaObj;
 import com.sptech.apikraken.repository.IDonorRepository;
@@ -59,6 +60,12 @@ public class PostService implements IService<PostDTO, Post>, NotificationService
                 throw new Error("Error-update-notifications");
             }
         }
+    }
+
+    public List<Post> getByPublisherId(Integer id) {
+
+        return iPostRepository.findAllByNgoId(id);
+
     }
 
 }

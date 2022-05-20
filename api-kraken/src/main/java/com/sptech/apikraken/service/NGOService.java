@@ -119,4 +119,12 @@ public class NGOService implements IService<NgoDTO, NGO> {
     public ListaObj<NGO> getAll() {
         return new ListaObj<NGO>(iNGORepository.findAll());
     }
+
+    public NGO getById(Integer id) {
+
+        if (!iNGORepository.existsById(id)) return null;
+
+        return iNGORepository.findById(id).get();
+
+    }
 }
