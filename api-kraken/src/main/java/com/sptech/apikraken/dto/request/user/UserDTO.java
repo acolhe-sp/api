@@ -9,13 +9,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.Arrays;
 
 public class UserDTO {
 
     @Positive
     private Integer id;
 
-    private String img;
+    private byte[] img;
 
     @NotBlank
     @Length(max = 40, message = "Nome muito grande")
@@ -37,7 +38,7 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    public UserDTO(Integer id, String img, String name, String email, String password, AddressDTO addressDTO, UserTypeEnum userType, boolean hasConnect) {
+    public UserDTO(Integer id, byte[] img, String name, String email, String password, AddressDTO addressDTO, UserTypeEnum userType, boolean hasConnect) {
         this.id = id;
         this.img = img;
         this.name = name;
@@ -69,11 +70,11 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 
@@ -129,7 +130,7 @@ public class UserDTO {
     public String toString() {
         return "UserDTO{" +
                 "id=" + id +
-                ", img='" + img + '\'' +
+                ", img='" + Arrays.toString(img) + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

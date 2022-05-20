@@ -1,5 +1,6 @@
 package com.sptech.apikraken.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sptech.apikraken.utils.enums.UserTypeEnum;
 import org.hibernate.validator.constraints.Length;
 
@@ -16,8 +17,8 @@ public class User {
     @Column(name = "id_user")
     private Integer id;
 
-    @Column(name = "img_user")
-    private String img;
+    @Column(name = "img_user", length = 50 * 1024 * 1024)
+    private byte[] img;
 
     @Column(name = "name_user")
     @Length(min = 3, max = 50, message = "Nome inválido")
@@ -28,6 +29,7 @@ public class User {
     private String email;
 
     @Column(name = "password_user")
+    @JsonIgnore
     private String password;
 
     @OneToOne
@@ -41,7 +43,7 @@ public class User {
 
     public User() {}
 
-    public User(String img, String name, String email, String password, Address address, UserTypeEnum userType, boolean hasConnect) {
+    public User(byte[] img, String name, String email, String password, Address address, UserTypeEnum userType, boolean hasConnect) {
         this.img = img;
         this.name = name;
         this.email = email;
@@ -51,7 +53,7 @@ public class User {
         this.connect = hasConnect;
     }
 
-    public User(Integer id, String img, String name, String email, String password, Address address, UserTypeEnum userType, boolean hasConnect) {
+    public User(Integer id, byte[] img, String name, String email, String password, Address address, UserTypeEnum userType, boolean hasConnect) {
         this(img, name, email, password, address, userType, hasConnect);
         this.id = id;
     }
@@ -64,11 +66,11 @@ public class User {
         this.id = id;
     }
 
-    public String getImg() {
+    public byte[] getImg() {
         return img;
     }
 
-    public void setImg(String img) {
+    public void setImg(byte[] img) {
         this.img = img;
     }
 
