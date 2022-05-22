@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,14 @@ public class NGO {
     )
     private List<Donor> followers;
 
+    @PositiveOrZero
+    private double assessment;
+
     public NGO() {}
+
+    public NGO(Integer id) {
+        this.id = id;
+    }
 
     public NGO(String cnpj, String description, Category category, User user) {
         this.cnpj = cnpj;
@@ -48,6 +56,7 @@ public class NGO {
         this.category = category;
         this.user = user;
         this.followers = new ArrayList<>();
+        this.assessment = 0;
     }
 
     public NGO(Integer id, String cnpj, String description, Category category, User user) {
@@ -89,6 +98,14 @@ public class NGO {
 
     public User getUser() {
         return user;
+    }
+
+    public double getAssessment() {
+        return assessment;
+    }
+
+    public void setAssessment(double assessment) {
+        this.assessment = assessment;
     }
 
     public void setUser(User user) {

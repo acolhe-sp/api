@@ -24,7 +24,7 @@ public class PostController {
         return ResponseEntity.status(200).body(postService.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/publisher/{id}")
     public ResponseEntity listPostsByPublisher(@PathVariable Integer id) {
 
         List<Post> posts = postService.getByPublisherId(id);

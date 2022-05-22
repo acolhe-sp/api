@@ -1,7 +1,7 @@
 package com.sptech.apikraken.controllers;
 
 import com.sptech.apikraken.dto.request.logon.LogonDTO;
-import com.sptech.apikraken.dto.response.PayloadRetornoLogon;
+import com.sptech.apikraken.dto.response.logon.PayloadRetornoLogon;
 import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.entity.User;
@@ -91,8 +91,5 @@ public class UserController {
 
         return ResponseEntity.status(200).body(picFile);
     }
-
-
-
 
 }

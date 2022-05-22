@@ -46,6 +46,10 @@ public class PostDTO {
         this.id = id;
     }
 
+    public PostDTO(NGO ngo, String description, String img) {
+        this(ngo, description, img, LocalDateTime.now(), 0);
+    }
+
     public PostDTO(Post post) {
         this(
                 post.getId(),

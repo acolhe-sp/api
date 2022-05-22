@@ -21,6 +21,10 @@ public class Category {
         this.description = description;
     }
 
+    public Category(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Category{" +

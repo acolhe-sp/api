@@ -1,4 +1,4 @@
-package com.sptech.apikraken.dto.response;
+package com.sptech.apikraken.dto.response.logon;
 
 import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.entity.NGO;
