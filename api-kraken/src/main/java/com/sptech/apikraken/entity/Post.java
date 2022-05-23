@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -50,6 +51,7 @@ public class Post {
         this.img = img;
         this.dateTime = LocalDateTime.now();
         this.amountEvaluate = amountEvaluate;
+        this.usersToNotify = new ArrayList<>();
     }
 
     public Post(Integer id, NGO ngo, String description, String img, int amountEvaluate) {

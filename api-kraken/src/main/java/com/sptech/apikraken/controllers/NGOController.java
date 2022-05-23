@@ -3,7 +3,6 @@ package com.sptech.apikraken.controllers;
 import com.sptech.apikraken.dto.request.ngo.NgoDTO;
 import com.sptech.apikraken.dto.request.ngo.UpdateDescriptionNgoDTO;
 import com.sptech.apikraken.dto.response.ngo.NGOComplete;
-import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.service.NGOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

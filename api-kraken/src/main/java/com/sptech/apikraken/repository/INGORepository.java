@@ -15,6 +15,8 @@ public interface INGORepository extends JpaRepository<NGO, Integer> {
 
     List<NGO> findByCnpj(String cnpj);
 
+    NGO findByUserId(Integer id);
+
     @Query("select new com.sptech.apikraken.dto.response.ngo.NGOComplete" +
             "(n.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
             "from NGO n where n.category = ?1")

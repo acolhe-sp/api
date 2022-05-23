@@ -2,6 +2,7 @@ package com.sptech.apikraken.controllers;
 
 import com.sptech.apikraken.dto.request.donor.DonorDTO;
 import com.sptech.apikraken.dto.request.donor.UpdateDocumentsDonorDTO;
+import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,17 @@ public class DonorController {
     @PutMapping("/{id}/documents")
     public ResponseEntity updateDocsDonor(@PathVariable int id,
                                             @RequestBody @Valid UpdateDocumentsDonorDTO docsDonor)
+    {
+        boolean updated = donorService.updateDocs(id, docsDonor);
+
+        if (updated) return ResponseEntity.status(201).build();
+
+        return ResponseEntity.status(400).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity updateDonor(@PathVariable int id,
+                                          @RequestBody @Valid UpdateDocumentsDonorDTO docsDonor)
     {
         boolean updated = donorService.updateDocs(id, docsDonor);
 

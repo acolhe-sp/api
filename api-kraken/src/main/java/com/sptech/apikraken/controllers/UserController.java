@@ -43,6 +43,30 @@ public class UserController {
         return ResponseEntity.status(404).build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getUserById(@PathVariable Integer id) {
+
+        User user = iUserRepository.findById(id).get();
+
+        if(user.getId() == null) return ResponseEntity.status(404).build();
+
+        PayloadRetornoLogon response = null;
+
+        if (user.getUserType() == UserTypeEnum.USER_DONOR) {
+
+            Donor donor = iDonorRepository.findById(user.getId()).get();
+            response = this.logonUserValidateUseCase.execute(user, donor);
+
+        } else {
+
+            NGO ngo = iNGORepository.findById(user.getId()).get();
+            response = this.logonUserValidateUseCase.execute(user, ngo);
+
+        }
+
+        return ResponseEntity.status(200).body(response);
+    }
+
     @PostMapping("/logon")
     public ResponseEntity logon(@RequestBody @Valid LogonDTO logonDTO) {
 
@@ -55,12 +79,12 @@ public class UserController {
 
         if (user.getUserType() == UserTypeEnum.USER_DONOR) {
 
-            Donor donor = iDonorRepository.findById(user.getId()).get();
+            Donor donor = iDonorRepository.findByUserId(user.getId());
             response = this.logonUserValidateUseCase.execute(user, donor);
 
         } else {
 
-            NGO ngo = iNGORepository.findById(user.getId()).get();
+            NGO ngo = iNGORepository.findByUserId(user.getId());
             response = this.logonUserValidateUseCase.execute(user, ngo);
 
         }

@@ -15,6 +15,8 @@ public interface IDonorRepository extends JpaRepository<Donor, Integer> {
 
     List<Donor> findByCpf(String cpf);
 
+    Donor findByUserId(Integer id);
+
     @Transactional
     @Modifying
     @Query("update Donor d set d.cpf = ?2, d.rg = ?3 where d.id = ?1")

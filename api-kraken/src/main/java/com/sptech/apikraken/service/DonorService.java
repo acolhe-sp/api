@@ -117,4 +117,10 @@ public class DonorService implements IService<DonorDTO, Donor> {
         return new ListaObj<Donor>(iDonorRepository.findAll());
     }
 
+    public Donor getById(Integer id) {
+        if (!iDonorRepository.existsById(id)) return null;
+
+        return iDonorRepository.findById(id).get();
+    }
+
 }

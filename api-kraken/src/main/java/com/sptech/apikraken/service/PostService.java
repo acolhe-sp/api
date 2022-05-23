@@ -22,6 +22,9 @@ public class PostService implements IService<PostDTO, Post>, NotificationService
     @Autowired
     private IDonorRepository iDonorRepository;
 
+    @Autowired
+    private IDonorRepository iNGORepository;
+
     @Override
     public Post create(PostDTO post) {
 
@@ -29,9 +32,11 @@ public class PostService implements IService<PostDTO, Post>, NotificationService
 
             Post postagem = iPostRepository.save(new Post(post));
 
-            if (postagem.getNgo().getFollowers().size() > 0) {
-                this.notificate(postagem.getNgo().getFollowers(), postagem);
-            }
+            System.out.println(postagem);
+
+//            if (postagem.getNgo().getFollowers().size() > 0) {
+//                this.notificate(postagem.getNgo().getFollowers(), postagem);
+//            }
 
             return postagem;
 
