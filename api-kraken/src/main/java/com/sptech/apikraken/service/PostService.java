@@ -69,7 +69,7 @@ public class PostService implements IService<PostDTO, Post>, NotificationService
 
     public List<Post> getByPublisherId(Integer id) {
 
-        return iPostRepository.findAllByNgoId(id);
+        return iPostRepository.findAllByNgoIdOrderByIdDesc(id);
 
     }
 

@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface IPostRepository extends JpaRepository<Post, Integer> {
 
-    List<Post> findAllByNgoId(Integer id);
+    List<Post> findAllByNgoIdOrderByIdDesc(Integer id);
 
 }
