@@ -60,7 +60,7 @@ public class NGOService implements IService<NgoDTO, NGO> {
 
             if (userRegister != null) {
 
-                NGO newNGO = new NGO(ngo.getCnpj(), ngo.getDescription(), ngo.getCategory(), userRegister);
+                NGO newNGO = new NGO(ngo.getCnpj(), ngo.getDescription(), ngo.getCategory(), userRegister, ngo.getAssessment());
 
                 return this.registerNGOValidateUseCase.execute(newNGO);
 

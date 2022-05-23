@@ -59,9 +59,15 @@ public class NGO {
         this.assessment = 0;
     }
 
-    public NGO(Integer id, String cnpj, String description, Category category, User user) {
+    public NGO(Integer id, String cnpj, String description, Category category, User user, double assessment) {
         this(cnpj, description, category, user);
         this.id = id;
+        this.assessment = assessment;
+    }
+
+    public NGO(String cnpj, String description, Category category, User user, double assessment) {
+        this(cnpj, description, category, user);
+        this.assessment = assessment;
     }
 
     public Integer getId() {
