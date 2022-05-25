@@ -35,12 +35,12 @@ public class NGOController {
         return ResponseEntity.status(200).body(ngos);
     }
 
-    @GetMapping("/categoria/{categoria}")
-    public ResponseEntity listNGOsByCategoria(@RequestParam Integer idCategoria) {
+    @GetMapping("/categorias/{id}")
+    public ResponseEntity listNGOsByCategoria(@PathVariable Integer id) {
 
-        if (idCategoria > 7) return ResponseEntity.status(404).build();
+        if (id > 8) return ResponseEntity.status(404).build();
 
-        List<NGOComplete> ngos = ngoService.listNGOsByCategoria(idCategoria);
+        List<NGOComplete> ngos = ngoService.listNGOsByCategoria(id);
 
         if (ngos.isEmpty()) return ResponseEntity.status(204).build();
 

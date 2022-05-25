@@ -19,7 +19,7 @@ public interface INGORepository extends JpaRepository<NGO, Integer> {
 
     @Query("select new com.sptech.apikraken.dto.response.ngo.NGOComplete" +
             "(n.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
-            "from NGO n where n.category = ?1")
+            "from NGO n where n.category.id = ?1 order by n.assessment desc")
     List<NGOComplete> consultaNGOCompletePelaCategory(Integer categoria);
 
     @Query("select new com.sptech.apikraken.dto.response.ngo.NGOComplete" +
@@ -29,7 +29,7 @@ public interface INGORepository extends JpaRepository<NGO, Integer> {
 
     @Query("select new com.sptech.apikraken.dto.response.ngo.NGOComplete" +
             "(n.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
-            "from NGO n")
+            "from NGO n order by n.assessment desc")
     List<NGOComplete> consultaNGOComplete();
 
     @Transactional

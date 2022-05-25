@@ -135,8 +135,6 @@ public class NGOService implements IService<NgoDTO, NGO> {
 
     public List<NGOComplete> listNGOsByCategoria(Integer id) {
 
-        if (!iNGORepository.existsById(id)) return null;
-
         return iNGORepository.consultaNGOCompletePelaCategory(id);
 
     }
