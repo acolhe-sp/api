@@ -30,9 +30,6 @@ public class Donor {
     @NotNull
     private User user;
 
-    @ManyToMany(mappedBy = "followers")
-    private List<NGO> ngos_follow;
-
     @ManyToMany
     @JoinTable(
             name = "notifications_post_donor",
@@ -43,16 +40,19 @@ public class Donor {
 
     public Donor() {}
 
-    public Donor(String rg, String cpf, User user) {
+    public Donor(Integer id) {
+        this.id = id;
+    }
+
+    public Donor(String rg, String cpf, User user, List<Post> notifications) {
         this.rg = rg;
         this.cpf = cpf;
         this.user = user;
-        this.ngos_follow = new ArrayList<>();
-        this.notifications = new ArrayList<>();
+        this.notifications = notifications;
     }
 
-    public Donor(Integer id, String rg, String cpf, User user) {
-        this(rg, cpf, user);
+    public Donor(Integer id, String rg, String cpf, User user, List<Post> notifications) {
+        this(rg, cpf, user, notifications);
         this.id = id;
     }
 
@@ -94,14 +94,6 @@ public class Donor {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public List<NGO> getNgos_follow() {
-        return ngos_follow;
-    }
-
-    public void setNgos_follow(List<NGO> ngos_follow) {
-        this.ngos_follow = ngos_follow;
     }
 
     public List<Post> getNotifications() {

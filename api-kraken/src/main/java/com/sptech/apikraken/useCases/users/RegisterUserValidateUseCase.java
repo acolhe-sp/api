@@ -6,6 +6,8 @@ import com.sptech.apikraken.utils.interfaces.IUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class RegisterUserValidateUseCase implements IUseCase<User, User> {
 
@@ -15,7 +17,9 @@ public class RegisterUserValidateUseCase implements IUseCase<User, User> {
     @Override
     public User execute(User user) {
 
-        if (iUserRepository.findByEmail(user.getEmail()).isEmpty()) {
+        List<User> userValid = iUserRepository.findByEmail(user.getEmail());
+
+        if (userValid.isEmpty() || userValid.get(0).getId().equals(user.getId())) {
 
             iUserRepository.save(user);
             return user;

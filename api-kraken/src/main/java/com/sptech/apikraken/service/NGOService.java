@@ -35,8 +35,10 @@ public class NGOService implements IService<NgoDTO, NGO> {
         User userRegister = null;
 
         try {
-
-            Address newAddress = new Address(
+            Address newAddress = null;
+            if (ngo.getAddressDTO().getId() != null) {
+                newAddress = new Address(
+                    ngo.getAddressDTO().getId(),
                     ngo.getAddressDTO().getState(),
                     ngo.getAddressDTO().getCity(),
                     ngo.getAddressDTO().getDistrict(),
@@ -44,9 +46,23 @@ public class NGOService implements IService<NgoDTO, NGO> {
                     ngo.getAddressDTO().getStreet(),
                     ngo.getAddressDTO().getNumber(),
                     ngo.getAddressDTO().getComplement()
-            );
+                );
+            } else {
+                newAddress = new Address(
+                    ngo.getAddressDTO().getState(),
+                    ngo.getAddressDTO().getCity(),
+                    ngo.getAddressDTO().getDistrict(),
+                    ngo.getAddressDTO().getCep(),
+                    ngo.getAddressDTO().getStreet(),
+                    ngo.getAddressDTO().getNumber(),
+                    ngo.getAddressDTO().getComplement()
+                );
+            }
 
-            User newUser = new User(
+            User newUser = null;
+            if (ngo.getUserId() != null) {
+                newUser = new User(
+                    ngo.getUserId(),
                     ngo.getImg(),
                     ngo.getName(),
                     ngo.getEmail(),
@@ -54,13 +70,41 @@ public class NGOService implements IService<NgoDTO, NGO> {
                     this.registerAddressUseCase.execute(newAddress),
                     ngo.getUserType(),
                     ngo.isConnect()
-            );
+                );
+            } else {
+                newUser = new User(
+                    ngo.getImg(),
+                    ngo.getName(),
+                    ngo.getEmail(),
+                    ngo.getPassword(),
+                    this.registerAddressUseCase.execute(newAddress),
+                    ngo.getUserType(),
+                    ngo.isConnect()
+                );
+            }
 
             userRegister = this.registerUserValidateUseCase.execute(newUser);
 
             if (userRegister != null) {
-
-                NGO newNGO = new NGO(ngo.getCnpj(), ngo.getDescription(), ngo.getCategory(), userRegister, ngo.getAssessment());
+                NGO newNGO = null;
+                if (ngo.getId() != null) {
+                    newNGO = new NGO(
+                        ngo.getId(),
+                        ngo.getCnpj(),
+                        ngo.getDescription(),
+                        ngo.getCategory(),
+                        userRegister,
+                        ngo.getAssessment()
+                    );
+                } else {
+                    newNGO = new NGO(
+                        ngo.getCnpj(),
+                        ngo.getDescription(),
+                        ngo.getCategory(),
+                        userRegister,
+                        ngo.getAssessment()
+                    );
+                }
 
                 return this.registerNGOValidateUseCase.execute(newNGO);
 
@@ -73,36 +117,14 @@ public class NGOService implements IService<NgoDTO, NGO> {
         return null;
     }
 
-    public Boolean update(Integer id, NgoDTO newNGO) {
+    public NGO update(Integer id, NgoDTO newNGO) {
 
         if (iNGORepository.existsById(id)) {
+            newNGO.setId(id);
+            return this.create(newNGO);
+        };
 
-            try {
-
-                newNGO.setId(id);
-                this.create(newNGO);
-
-            } catch(Exception e) {
-                throw new Error("Erro ao atualizar"+e);
-            }
-
-        }
-        return false;
-    }
-
-    public Boolean updateDescription(UpdateDescriptionNgoDTO newDesc) {
-
-        if (iNGORepository.existsById(newDesc.getId())) {
-            try {
-
-                iNGORepository.updateDescription(newDesc.getId(), newDesc.getDescription());
-                return true;
-
-            } catch(Exception e) {
-                throw new Error("NGOService - Erro ao atualizar descrição: "+e);
-            }
-        }
-        return false;
+        return null;
     }
 
     @Override

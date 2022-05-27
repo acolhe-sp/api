@@ -33,14 +33,6 @@ public class NGO {
     @NotNull
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "follow_ngo_donor",
-            joinColumns = @JoinColumn(name = "fk_ngo", referencedColumnName = "id_ngo"),
-            inverseJoinColumns = @JoinColumn(name = "fk_donor", referencedColumnName = "id_donor")
-    )
-    private List<Donor> followers;
-
     @PositiveOrZero
     private double assessment;
 
@@ -55,7 +47,6 @@ public class NGO {
         this.description = description;
         this.category = category;
         this.user = user;
-        this.followers = new ArrayList<>();
         this.assessment = 0;
     }
 
@@ -116,14 +107,6 @@ public class NGO {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public List<Donor> getFollowers() {
-        return this.followers;
-    }
-
-    public void setFollowers(List<Donor> followers) {
-        this.followers = followers;
     }
 
     @Override

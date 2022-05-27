@@ -49,14 +49,51 @@ public class DonorController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateDonor(@PathVariable int id,
-                                          @RequestBody @Valid UpdateDocumentsDonorDTO docsDonor)
+    public ResponseEntity updateDonor(@PathVariable Integer id,
+                                      @RequestBody @Valid DonorDTO donorUpdate)
     {
-        boolean updated = donorService.updateDocs(id, docsDonor);
+        try {
 
-        if (updated) return ResponseEntity.status(201).build();
+            Donor updated = donorService.update(id, donorUpdate);
+            return ResponseEntity.status(201).body(updated);
 
-        return ResponseEntity.status(400).build();
+        } catch(Exception e) {
+            return ResponseEntity.status(400).build();
+        }
+    }
+
+    @PostMapping("/{id}/follow/{idOng}")
+    public ResponseEntity updateStateFollowDonor(@PathVariable Integer id,
+                                                @PathVariable Integer idOng)
+    {
+        try {
+
+            boolean stateFollow = donorService.turnFollowState(id, idOng);
+
+            System.out.println("finalizou");
+
+            return ResponseEntity.status(201).body(stateFollow);
+
+        } catch (Exception e) {
+            System.out.println("esse erro: "+e.getMessage());
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/{id}/follow/{idOng}")
+    public ResponseEntity checkStateFollowDonor(@PathVariable Integer id,
+                                                 @PathVariable Integer idOng)
+    {
+        try {
+
+            boolean stateFollow = donorService.checkFollowState(id, idOng);
+
+            return ResponseEntity.status(201).body(stateFollow);
+
+        } catch (Exception e) {
+            System.out.println("esse erro: "+e.getMessage());
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @DeleteMapping("/{id}")

@@ -2,11 +2,12 @@ package com.sptech.apikraken.service;
 
 import com.sptech.apikraken.dto.request.donor.DonorDTO;
 import com.sptech.apikraken.dto.request.donor.UpdateDocumentsDonorDTO;
-import com.sptech.apikraken.entity.Address;
-import com.sptech.apikraken.entity.Donor;
-import com.sptech.apikraken.entity.User;
+import com.sptech.apikraken.entity.*;
+import com.sptech.apikraken.entity.keys.FollowKey;
 import com.sptech.apikraken.list.ListaObj;
 import com.sptech.apikraken.repository.IDonorRepository;
+import com.sptech.apikraken.repository.IFollowDonorNGORepository;
+import com.sptech.apikraken.repository.INGORepository;
 import com.sptech.apikraken.repository.IUserRepository;
 import com.sptech.apikraken.useCases.addresses.RegisterAddressUseCase;
 import com.sptech.apikraken.useCases.donors.RegisterDonorValidateUseCase;
@@ -18,8 +19,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class DonorService implements IService<DonorDTO, Donor> {
 
-    @Autowired
-    private IDonorRepository iDonorRepository;
+    @Autowired private IDonorRepository iDonorRepository;
+
+    @Autowired private INGORepository ingoRepository;
+
+    @Autowired private IFollowDonorNGORepository followReposotory;
+
     @Autowired private IUserRepository iUserRepository;
 
     @Autowired private RegisterUserValidateUseCase registerUserValidateUseCase;
@@ -33,7 +38,10 @@ public class DonorService implements IService<DonorDTO, Donor> {
         User userRegister = null;
 
         try {
-            Address newAddress = new Address(
+            Address newAddress = null;
+            if (donor.getAddressDTO().getId() != null) {
+                newAddress = new Address(
+                    donor.getAddressDTO().getId(),
                     donor.getAddressDTO().getState(),
                     donor.getAddressDTO().getCity(),
                     donor.getAddressDTO().getDistrict(),
@@ -41,11 +49,25 @@ public class DonorService implements IService<DonorDTO, Donor> {
                     donor.getAddressDTO().getStreet(),
                     donor.getAddressDTO().getNumber(),
                     donor.getAddressDTO().getComplement()
-            );
+                );
+            } else {
+                newAddress = new Address(
+                    donor.getAddressDTO().getState(),
+                    donor.getAddressDTO().getCity(),
+                    donor.getAddressDTO().getDistrict(),
+                    donor.getAddressDTO().getCep(),
+                    donor.getAddressDTO().getStreet(),
+                    donor.getAddressDTO().getNumber(),
+                    donor.getAddressDTO().getComplement()
+                );
+            }
 
             System.out.println("passou 1");
 
-            User newUser = new User(
+            User newUser = null;
+            if (donor.getUserId() != null) {
+                newUser = new User(
+                    donor.getUserId(),
                     donor.getImg(),
                     donor.getName(),
                     donor.getEmail(),
@@ -53,21 +75,40 @@ public class DonorService implements IService<DonorDTO, Donor> {
                     this.registerAddressUseCase.execute(newAddress),
                     donor.getUserType(),
                     donor.isConnect()
-            );
-
-            System.out.println("passou 2");
+                );
+            } else {
+                newUser = new User(
+                    donor.getImg(),
+                    donor.getName(),
+                    donor.getEmail(),
+                    donor.getPassword(),
+                    this.registerAddressUseCase.execute(newAddress),
+                    donor.getUserType(),
+                    donor.isConnect()
+                );
+            }
 
             userRegister = this.registerUserValidateUseCase.execute(newUser);
 
-            System.out.println("passou 3");
-
             if (userRegister != null) {
 
-                System.out.println("passou 4");
-
-                Donor newDonor = new Donor(donor.getRg(), donor.getCpf(), userRegister);
-
-                System.out.println("passou 5");
+                Donor newDonor = null;
+                if (donor.getId() != null) {
+                    newDonor = new Donor(
+                        donor.getRg(),
+                        donor.getCpf(),
+                        userRegister,
+                        donor.getNotifications()
+                    );
+                } else {
+                    newDonor = new Donor(
+                            donor.getId(),
+                            donor.getRg(),
+                            donor.getCpf(),
+                            userRegister,
+                            donor.getNotifications()
+                    );
+                }
 
                 return this.registerDonorValidateUseCase.execute(newDonor);
 
@@ -97,6 +138,39 @@ public class DonorService implements IService<DonorDTO, Donor> {
 
         };
         return false;
+    }
+
+    public Boolean turnFollowState(Integer id, Integer idOng) {
+        if (iDonorRepository.existsById(id) && ingoRepository.existsById(id)) {
+
+            boolean existFollow = followReposotory.existsById(new FollowKey(id, idOng));
+
+            if (existFollow) {
+                followReposotory.deleteById(new FollowKey(id, idOng));
+                return false;
+            } else {
+                followReposotory.save(
+                    new FollowDonorNGO(
+                        new FollowKey(id, idOng),
+                        iDonorRepository.findById(id).get(),
+                        ingoRepository.findById(idOng).get()
+                    )
+                );
+                return true;
+            }
+        } else {
+            throw new IllegalArgumentException("Id Donor ou Id Ong inválidos");
+        }
+    }
+
+    public Boolean checkFollowState(Integer id, Integer idOng) {
+        if (iDonorRepository.existsById(id) && ingoRepository.existsById(id)) {
+
+            return followReposotory.existsById(new FollowKey(id, idOng));
+
+        } else {
+            throw new IllegalArgumentException("Id Donor ou Id Ong inválidos");
+        }
     }
 
     @Override

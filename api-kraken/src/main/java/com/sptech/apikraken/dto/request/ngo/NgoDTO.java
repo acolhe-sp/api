@@ -46,6 +46,16 @@ public class NgoDTO extends UserDTO {
         this.assessment = assessment;
     }
 
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getCnpj() {
         return cnpj;
     }
@@ -78,12 +88,18 @@ public class NgoDTO extends UserDTO {
         this.assessment = assessment;
     }
 
+    public Integer getUserId() {
+        return super.getId();
+    }
+
     @Override
     public String toString() {
         return "NgoDTO{" +
-                "cnpj='" + cnpj + '\'' +
+                "id=" + id +
+                ", cnpj='" + cnpj + '\'' +
                 ", description='" + description + '\'' +
                 ", category=" + category +
+                ", assessment=" + assessment +
                 '}';
     }
 }

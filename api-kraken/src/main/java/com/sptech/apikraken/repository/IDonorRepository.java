@@ -1,6 +1,7 @@
 package com.sptech.apikraken.repository;
 
 import com.sptech.apikraken.entity.Donor;
+import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

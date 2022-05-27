@@ -9,6 +9,8 @@ import javax.validation.constraints.Positive;
 
 public class AddressDTO {
 
+    private Integer id;
+
     @NotBlank
     @Length(max = 2, message = "Estado inválido")
     private String state;
@@ -34,6 +36,7 @@ public class AddressDTO {
     public AddressDTO() {}
 
     public AddressDTO(String state, String city, String district, String cep, String street, String number, String complement) {
+        this.id = id;
         this.state = state;
         this.city = city;
         this.district = district;
@@ -43,8 +46,14 @@ public class AddressDTO {
         this.complement = complement;
     }
 
+    public AddressDTO(Integer id, String state, String city, String district, String cep, String street, String number, String complement) {
+        this(state, city, district, cep, street, number, complement);
+        this.id = id;
+    }
+
     public AddressDTO(Address address) {
         this(
+             address.getId(),
              address.getState(),
              address.getCity(),
              address.getDistrict(),
@@ -53,6 +62,14 @@ public class AddressDTO {
              address.getNumber(),
              address.getComplement()
         );
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getState() {

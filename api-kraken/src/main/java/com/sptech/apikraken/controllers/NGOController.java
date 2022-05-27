@@ -3,6 +3,7 @@ package com.sptech.apikraken.controllers;
 import com.sptech.apikraken.dto.request.ngo.NgoDTO;
 import com.sptech.apikraken.dto.request.ngo.UpdateDescriptionNgoDTO;
 import com.sptech.apikraken.dto.response.ngo.NGOComplete;
+import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.service.NGOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -69,13 +70,18 @@ public class NGOController {
         }
     }
 
-    @PutMapping("/description")
-    public ResponseEntity updateDescNGO(@RequestBody @Valid UpdateDescriptionNgoDTO newNGO)
+    @PutMapping("/{id}")
+    public ResponseEntity updateNGO(@PathVariable Integer id,
+                                        @RequestBody @Valid NgoDTO newNGO)
     {
-        boolean updated = ngoService.updateDescription(newNGO);
+        try {
 
-        return updated ? ResponseEntity.status(201).build()
-                        : ResponseEntity.status(404).build();
+            NGO updated = ngoService.update(id, newNGO);
+            return ResponseEntity.status(201).body(updated);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
     }
 
     @DeleteMapping("/{id}")
