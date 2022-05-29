@@ -2,19 +2,21 @@ package com.sptech.apikraken.service;
 
 import com.sptech.apikraken.dto.request.donor.DonorDTO;
 import com.sptech.apikraken.dto.request.donor.UpdateDocumentsDonorDTO;
+import com.sptech.apikraken.dto.response.donation.DonationDataPerfil;
+import com.sptech.apikraken.dto.response.donor.DonorFollowing;
 import com.sptech.apikraken.entity.*;
 import com.sptech.apikraken.entity.keys.FollowKey;
 import com.sptech.apikraken.list.ListaObj;
-import com.sptech.apikraken.repository.IDonorRepository;
-import com.sptech.apikraken.repository.IFollowDonorNGORepository;
-import com.sptech.apikraken.repository.INGORepository;
-import com.sptech.apikraken.repository.IUserRepository;
+import com.sptech.apikraken.repository.*;
 import com.sptech.apikraken.useCases.addresses.RegisterAddressUseCase;
 import com.sptech.apikraken.useCases.donors.RegisterDonorValidateUseCase;
 import com.sptech.apikraken.useCases.users.RegisterUserValidateUseCase;
 import com.sptech.apikraken.utils.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DonorService implements IService<DonorDTO, Donor> {
@@ -24,6 +26,8 @@ public class DonorService implements IService<DonorDTO, Donor> {
     @Autowired private INGORepository ingoRepository;
 
     @Autowired private IFollowDonorNGORepository followReposotory;
+
+    @Autowired private IDonationRepository donationReposotory;
 
     @Autowired private IUserRepository iUserRepository;
 
@@ -168,6 +172,41 @@ public class DonorService implements IService<DonorDTO, Donor> {
 
         } else {
             throw new IllegalArgumentException("Id Donor ou Id Ong inválidos");
+        }
+    }
+
+    public DonorFollowing countFollowsDonor(Integer id) {
+        if (iDonorRepository.existsById(id)) {
+
+            List<NGO> ngos = followReposotory.findAllByDonorId(id)
+                                                .stream().map(FollowDonorNGO::getNgo)
+                                                .collect(Collectors.toList());
+
+
+            DonorFollowing follows = new DonorFollowing(ngos.size(), ngos);
+
+            return follows;
+
+        } else {
+            throw new IllegalArgumentException("Id Donor inválido");
+        }
+    }
+
+    public DonationDataPerfil dataDonationsDonor(Integer id) {
+        if (iDonorRepository.existsById(id)) {
+
+            List<Donation> donations = donationReposotory.findByDonorId(id);
+
+            DonationDataPerfil dataDonationsPerfil = new DonationDataPerfil(
+                    donations.size(),
+                    donations,
+                    donations.stream().map(Donation::getValue).reduce(0.0, Double::sum)
+            );
+
+            return dataDonationsPerfil;
+
+        } else {
+            throw new IllegalArgumentException("Id Donor inválido");
         }
     }
 

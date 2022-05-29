@@ -2,6 +2,8 @@ package com.sptech.apikraken.controllers;
 
 import com.sptech.apikraken.dto.request.donor.DonorDTO;
 import com.sptech.apikraken.dto.request.donor.UpdateDocumentsDonorDTO;
+import com.sptech.apikraken.dto.response.donation.DonationDataPerfil;
+import com.sptech.apikraken.dto.response.donor.DonorFollowing;
 import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.service.DonorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +92,34 @@ public class DonorController {
             boolean stateFollow = donorService.checkFollowState(id, idOng);
 
             return ResponseEntity.status(201).body(stateFollow);
+
+        } catch (Exception e) {
+            System.out.println("esse erro: "+e.getMessage());
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/{id}/following")
+    public ResponseEntity followsDonor(@PathVariable Integer id) {
+        try {
+
+            DonorFollowing dataFollow = donorService.countFollowsDonor(id);
+
+            return ResponseEntity.status(201).body(dataFollow);
+
+        } catch (Exception e) {
+            System.out.println("esse erro: "+e.getMessage());
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/{id}/donations")
+    public ResponseEntity donationsDonor(@PathVariable Integer id) {
+        try {
+
+            DonationDataPerfil dataDonations = donorService.dataDonationsDonor(id);
+
+            return ResponseEntity.status(201).body(dataDonations);
 
         } catch (Exception e) {
             System.out.println("esse erro: "+e.getMessage());
