@@ -1,6 +1,7 @@
 package com.sptech.apikraken.controllers;
 
 import com.sptech.apikraken.dto.request.logon.LogonDTO;
+import com.sptech.apikraken.dto.request.user.UserParam;
 import com.sptech.apikraken.dto.response.logon.PayloadRetornoLogon;
 import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.entity.NGO;
@@ -12,9 +13,14 @@ import com.sptech.apikraken.useCases.users.LogonUserValidateUseCase;
 import com.sptech.apikraken.utils.enums.UserTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URL;
+import java.net.URLDecoder;
+import java.util.Base64;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -89,31 +95,63 @@ public class UserController {
 
         }
 
+        byte[] decoded = Base64Utils.decode(response.getUser().getImg() != null
+                                                    ? response.getUser().getImg()
+                                                    : new byte[]{});
+
+        response.getUser().setImg(decoded);
+
         return ResponseEntity.status(200).body(response);
     }
 
-    @PatchMapping(value = "/pic/{id}", consumes = "image/jpeg")
-    public ResponseEntity patchPic(@PathVariable int id, @RequestBody byte[] picFile) {
+    @PutMapping("/logout/{id}")
+    public ResponseEntity logout(@PathVariable Integer id) {
+        try {
+            User user = iUserRepository.findById(id).get();
 
-        if (!iUserRepository.existsById(id)) return ResponseEntity.status(404).build();
+            if(user.getId() == null) return ResponseEntity.status(404).build();
 
-        User user = iUserRepository.findById(id).get();
+            user.setConnect(false);
+            iUserRepository.save(user);
 
-        user.setImg(picFile);
-        iUserRepository.save(user);
+            return ResponseEntity.status(200).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
+    }
 
-        return ResponseEntity.status(200).build();
+    @PatchMapping(value = "/pic/{id}", consumes="application/json")
+    public ResponseEntity patchPic(@PathVariable int id, @RequestBody UserParam userParam) {
+
+        try {
+            if (!iUserRepository.existsById(id)) return ResponseEntity.status(404).build();
+
+            User user = iUserRepository.findById(id).get();
+
+            byte[] encoded = Base64Utils.encode(userParam.getImg().getBytes());
+
+            user.setImg(encoded);
+            iUserRepository.save(user);
+
+            return ResponseEntity.status(200).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
     @GetMapping(value = "/pic/{id}", produces = "image/jpeg")
     public ResponseEntity getPic(@PathVariable int id) {
-        if (!iUserRepository.existsById(id)) return ResponseEntity.status(404).build();
+        try {
+            if (!iUserRepository.existsById(id)) return ResponseEntity.status(404).build();
 
-        User user = iUserRepository.findById(id).get();
+            User user = iUserRepository.findById(id).get();
 
-        byte[] picFile = user.getImg();
+            byte[] decoded = Base64Utils.decode(user.getImg() != null ? user.getImg() : new byte[]{});
 
-        return ResponseEntity.status(200).body(picFile);
+            return ResponseEntity.status(200).body(new String(decoded));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
 }

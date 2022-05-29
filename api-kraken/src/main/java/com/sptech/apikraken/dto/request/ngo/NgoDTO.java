@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.validation.constraints.NotNull;
 
-public class NgoDTO extends UserDTO {
+public class NgoDTO {
 
     private Integer id;
 
@@ -21,6 +21,9 @@ public class NgoDTO extends UserDTO {
     @NotNull
     private Category category;
 
+    @NotNull
+    private UserDTO user;
+
     private double assessment;
 
     public NgoDTO() {}
@@ -30,28 +33,26 @@ public class NgoDTO extends UserDTO {
     }
 
     public NgoDTO(NGO ngo) {
-        super(ngo.getUser());
         this.id = ngo.getId();
         this.cnpj = ngo.getCnpj();
         this.description = ngo.getDescription();
         this.category = ngo.getCategory();
+        this.user = new UserDTO(ngo.getUser());
     }
 
     public NgoDTO(Integer id, byte[] img, String name, String email, String password, AddressDTO addressDTO, UserTypeEnum userType, boolean hasConnect, Integer idNGO, String cnpj, String description, Category category, double assessment) {
-        super(id, img, name, email, password, addressDTO, userType, hasConnect);
         this.id = idNGO;
         this.cnpj = cnpj;
         this.description = description;
         this.category = category;
         this.assessment = assessment;
+        this.user = new UserDTO(id, img, name, email, password, addressDTO, userType, hasConnect);
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -80,16 +81,20 @@ public class NgoDTO extends UserDTO {
         this.category = category;
     }
 
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
     public double getAssessment() {
         return assessment;
     }
 
     public void setAssessment(double assessment) {
         this.assessment = assessment;
-    }
-
-    public Integer getUserId() {
-        return super.getId();
     }
 
     @Override
@@ -99,6 +104,7 @@ public class NgoDTO extends UserDTO {
                 ", cnpj='" + cnpj + '\'' +
                 ", description='" + description + '\'' +
                 ", category=" + category +
+                ", user=" + user +
                 ", assessment=" + assessment +
                 '}';
     }

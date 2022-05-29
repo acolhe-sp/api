@@ -58,6 +58,7 @@ public class DonorController {
             return ResponseEntity.status(201).body(updated);
 
         } catch(Exception e) {
+            System.out.println("donor 2, "+donorUpdate);
             return ResponseEntity.status(400).build();
         }
     }

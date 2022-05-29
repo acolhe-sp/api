@@ -39,52 +39,50 @@ public class DonorService implements IService<DonorDTO, Donor> {
 
         try {
             Address newAddress = null;
-            if (donor.getAddressDTO().getId() != null) {
+            if (donor.getUser().getAddressDTO().getId() != null) {
                 newAddress = new Address(
-                    donor.getAddressDTO().getId(),
-                    donor.getAddressDTO().getState(),
-                    donor.getAddressDTO().getCity(),
-                    donor.getAddressDTO().getDistrict(),
-                    donor.getAddressDTO().getCep(),
-                    donor.getAddressDTO().getStreet(),
-                    donor.getAddressDTO().getNumber(),
-                    donor.getAddressDTO().getComplement()
+                    donor.getUser().getAddressDTO().getId(),
+                    donor.getUser().getAddressDTO().getState(),
+                    donor.getUser().getAddressDTO().getCity(),
+                    donor.getUser().getAddressDTO().getDistrict(),
+                    donor.getUser().getAddressDTO().getCep(),
+                    donor.getUser().getAddressDTO().getStreet(),
+                    donor.getUser().getAddressDTO().getNumber(),
+                    donor.getUser().getAddressDTO().getComplement()
                 );
             } else {
                 newAddress = new Address(
-                    donor.getAddressDTO().getState(),
-                    donor.getAddressDTO().getCity(),
-                    donor.getAddressDTO().getDistrict(),
-                    donor.getAddressDTO().getCep(),
-                    donor.getAddressDTO().getStreet(),
-                    donor.getAddressDTO().getNumber(),
-                    donor.getAddressDTO().getComplement()
+                    donor.getUser().getAddressDTO().getState(),
+                    donor.getUser().getAddressDTO().getCity(),
+                    donor.getUser().getAddressDTO().getDistrict(),
+                    donor.getUser().getAddressDTO().getCep(),
+                    donor.getUser().getAddressDTO().getStreet(),
+                    donor.getUser().getAddressDTO().getNumber(),
+                    donor.getUser().getAddressDTO().getComplement()
                 );
             }
 
-            System.out.println("passou 1");
-
             User newUser = null;
-            if (donor.getUserId() != null) {
+            if (donor.getUser().getId() != null) {
                 newUser = new User(
-                    donor.getUserId(),
-                    donor.getImg(),
-                    donor.getName(),
-                    donor.getEmail(),
-                    donor.getPassword(),
+                    donor.getUser().getId(),
+                    donor.getUser().getImg(),
+                    donor.getUser().getName(),
+                    donor.getUser().getEmail(),
+                    donor.getUser().getPassword(),
                     this.registerAddressUseCase.execute(newAddress),
-                    donor.getUserType(),
-                    donor.isConnect()
+                    donor.getUser().getUserType(),
+                    donor.getUser().isConnect()
                 );
             } else {
                 newUser = new User(
-                    donor.getImg(),
-                    donor.getName(),
-                    donor.getEmail(),
-                    donor.getPassword(),
+                    donor.getUser().getImg(),
+                    donor.getUser().getName(),
+                    donor.getUser().getEmail(),
+                    donor.getUser().getPassword(),
                     this.registerAddressUseCase.execute(newAddress),
-                    donor.getUserType(),
-                    donor.isConnect()
+                    donor.getUser().getUserType(),
+                    donor.getUser().isConnect()
                 );
             }
 
@@ -95,6 +93,7 @@ public class DonorService implements IService<DonorDTO, Donor> {
                 Donor newDonor = null;
                 if (donor.getId() != null) {
                     newDonor = new Donor(
+                        donor.getId(),
                         donor.getRg(),
                         donor.getCpf(),
                         userRegister,
@@ -102,7 +101,6 @@ public class DonorService implements IService<DonorDTO, Donor> {
                     );
                 } else {
                     newDonor = new Donor(
-                            donor.getId(),
                             donor.getRg(),
                             donor.getCpf(),
                             userRegister,

@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 import javax.validation.constraints.Pattern;
 import java.util.List;
 
-public class DonorDTO extends UserDTO {
+public class DonorDTO {
 
     private Integer id;
 
@@ -17,6 +17,8 @@ public class DonorDTO extends UserDTO {
 
     @CPF
     private String cpf;
+
+    private UserDTO user;
 
     private List<Post> notifications;
 
@@ -27,18 +29,16 @@ public class DonorDTO extends UserDTO {
     }
 
     public DonorDTO(Donor donor) {
-        super(donor.getUser());
         this.rg = donor.getRg();
         this.cpf = donor.getCpf();
+        this.user = new UserDTO(donor.getUser());
         this.notifications = donor.getNotifications();
     }
 
-    @Override
     public Integer getId() {
         return id;
     }
 
-    @Override
     public void setId(Integer id) {
         this.id = id;
     }
@@ -59,6 +59,14 @@ public class DonorDTO extends UserDTO {
         this.cpf = cpf;
     }
 
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
     public List<Post> getNotifications() {
         return notifications;
     }
@@ -67,16 +75,13 @@ public class DonorDTO extends UserDTO {
         this.notifications = notifications;
     }
 
-    public Integer getUserId() {
-        return super.getId();
-    }
-
     @Override
     public String toString() {
         return "DonorDTO{" +
                 "id=" + id +
                 ", rg='" + rg + '\'' +
                 ", cpf='" + cpf + '\'' +
+                ", user=" + user +
                 ", notifications=" + notifications +
                 '}';
     }

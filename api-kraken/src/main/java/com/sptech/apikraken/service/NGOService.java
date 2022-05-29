@@ -36,50 +36,50 @@ public class NGOService implements IService<NgoDTO, NGO> {
 
         try {
             Address newAddress = null;
-            if (ngo.getAddressDTO().getId() != null) {
+            if (ngo.getUser().getAddressDTO().getId() != null) {
                 newAddress = new Address(
-                    ngo.getAddressDTO().getId(),
-                    ngo.getAddressDTO().getState(),
-                    ngo.getAddressDTO().getCity(),
-                    ngo.getAddressDTO().getDistrict(),
-                    ngo.getAddressDTO().getCep(),
-                    ngo.getAddressDTO().getStreet(),
-                    ngo.getAddressDTO().getNumber(),
-                    ngo.getAddressDTO().getComplement()
+                    ngo.getUser().getAddressDTO().getId(),
+                    ngo.getUser().getAddressDTO().getState(),
+                    ngo.getUser().getAddressDTO().getCity(),
+                    ngo.getUser().getAddressDTO().getDistrict(),
+                    ngo.getUser().getAddressDTO().getCep(),
+                    ngo.getUser().getAddressDTO().getStreet(),
+                    ngo.getUser().getAddressDTO().getNumber(),
+                    ngo.getUser().getAddressDTO().getComplement()
                 );
             } else {
                 newAddress = new Address(
-                    ngo.getAddressDTO().getState(),
-                    ngo.getAddressDTO().getCity(),
-                    ngo.getAddressDTO().getDistrict(),
-                    ngo.getAddressDTO().getCep(),
-                    ngo.getAddressDTO().getStreet(),
-                    ngo.getAddressDTO().getNumber(),
-                    ngo.getAddressDTO().getComplement()
+                    ngo.getUser().getAddressDTO().getState(),
+                    ngo.getUser().getAddressDTO().getCity(),
+                    ngo.getUser().getAddressDTO().getDistrict(),
+                    ngo.getUser().getAddressDTO().getCep(),
+                    ngo.getUser().getAddressDTO().getStreet(),
+                    ngo.getUser().getAddressDTO().getNumber(),
+                    ngo.getUser().getAddressDTO().getComplement()
                 );
             }
 
             User newUser = null;
-            if (ngo.getUserId() != null) {
+            if (ngo.getUser().getId() != null) {
                 newUser = new User(
-                    ngo.getUserId(),
-                    ngo.getImg(),
-                    ngo.getName(),
-                    ngo.getEmail(),
-                    ngo.getPassword(),
+                    ngo.getUser().getId(),
+                    ngo.getUser().getImg(),
+                    ngo.getUser().getName(),
+                    ngo.getUser().getEmail(),
+                    ngo.getUser().getPassword(),
                     this.registerAddressUseCase.execute(newAddress),
-                    ngo.getUserType(),
-                    ngo.isConnect()
+                    ngo.getUser().getUserType(),
+                    ngo.getUser().isConnect()
                 );
             } else {
                 newUser = new User(
-                    ngo.getImg(),
-                    ngo.getName(),
-                    ngo.getEmail(),
-                    ngo.getPassword(),
+                    ngo.getUser().getImg(),
+                    ngo.getUser().getName(),
+                    ngo.getUser().getEmail(),
+                    ngo.getUser().getPassword(),
                     this.registerAddressUseCase.execute(newAddress),
-                    ngo.getUserType(),
-                    ngo.isConnect()
+                    ngo.getUser().getUserType(),
+                    ngo.getUser().isConnect()
                 );
             }
 

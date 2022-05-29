@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "tb_user")
@@ -120,5 +121,19 @@ public class User {
 
     public void setConnect(boolean connect) {
         this.connect = connect;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", img=" + Arrays.toString(img) +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", address=" + address +
+                ", userType=" + userType +
+                ", connect=" + connect +
+                '}';
     }
 }
