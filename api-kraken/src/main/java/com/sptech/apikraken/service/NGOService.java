@@ -1,10 +1,8 @@
 package com.sptech.apikraken.service;
 
 import com.sptech.apikraken.dto.request.ngo.NgoDTO;
-import com.sptech.apikraken.dto.request.ngo.UpdateDescriptionNgoDTO;
 import com.sptech.apikraken.dto.response.ngo.NGOComplete;
 import com.sptech.apikraken.entity.Address;
-import com.sptech.apikraken.entity.Donor;
 import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.entity.User;
 import com.sptech.apikraken.list.ListaObj;
@@ -16,6 +14,7 @@ import com.sptech.apikraken.useCases.users.RegisterUserValidateUseCase;
 import com.sptech.apikraken.utils.interfaces.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Base64Utils;
 
 import java.util.List;
 
@@ -152,7 +151,18 @@ public class NGOService implements IService<NgoDTO, NGO> {
     }
 
     public List<NGOComplete> getAllComplete() {
-        return iNGORepository.consultaNGOComplete();
+
+        List<NGOComplete> ngos = iNGORepository.consultaNGOComplete();
+
+        for (NGOComplete ngo: ngos) {
+
+            byte[] decoded = Base64Utils.decode(ngo.getImg() != null ? ngo.getImg() : new byte[]{});
+
+            ngo.setImg(decoded);
+
+        }
+
+        return ngos;
     }
 
     public List<NGOComplete> listNGOsByCategoria(Integer id) {

@@ -22,13 +22,9 @@ import java.util.stream.Collectors;
 public class DonorService implements IService<DonorDTO, Donor> {
 
     @Autowired private IDonorRepository iDonorRepository;
-
     @Autowired private INGORepository ingoRepository;
-
     @Autowired private IFollowDonorNGORepository followReposotory;
-
     @Autowired private IDonationRepository donationReposotory;
-
     @Autowired private IUserRepository iUserRepository;
 
     @Autowired private RegisterUserValidateUseCase registerUserValidateUseCase;

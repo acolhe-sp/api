@@ -18,17 +18,17 @@ public interface INGORepository extends JpaRepository<NGO, Integer> {
     NGO findByUserId(Integer id);
 
     @Query("select new com.sptech.apikraken.dto.response.ngo.NGOComplete" +
-            "(n.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
+            "(n.id, n.user.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
             "from NGO n where n.category.id = ?1 order by n.assessment desc")
     List<NGOComplete> consultaNGOCompletePelaCategory(Integer categoria);
 
     @Query("select new com.sptech.apikraken.dto.response.ngo.NGOComplete" +
-            "(n.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
+            "(n.id, n.user.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
             "from NGO n where n.id = ?1")
     NGOComplete getNGOCompleteById(Integer id);
 
     @Query("select new com.sptech.apikraken.dto.response.ngo.NGOComplete" +
-            "(n.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
+            "(n.id, n.user.id, n.user.img, n.user.name, n.user.email, n.user.address, n.user.userType, n.cnpj, n.description, n.category, n.assessment) " +
             "from NGO n order by n.assessment desc")
     List<NGOComplete> consultaNGOComplete();
 

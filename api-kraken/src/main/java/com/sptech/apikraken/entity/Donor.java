@@ -56,14 +56,6 @@ public class Donor {
         this.id = id;
     }
 
-    public void donate(double value, NGO ngo) {
-
-    }
-
-    public void evaluationNGO(NGO ngo, double pontuation) {
-
-    }
-
     public Integer getId() {
         return id;
     }

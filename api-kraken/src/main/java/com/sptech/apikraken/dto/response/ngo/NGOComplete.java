@@ -7,6 +7,7 @@ import com.sptech.apikraken.utils.enums.UserTypeEnum;
 public class NGOComplete {
 
     private Integer id;
+    private Integer idUser;
     private byte[] img;
     private String name;
     private String email;
@@ -17,8 +18,9 @@ public class NGOComplete {
     private Category category;
     private double assessment;
 
-    public NGOComplete(Integer id, byte[] img, String name, String email, Address address, UserTypeEnum userType, String cnpj, String description, Category category, double assessment) {
+    public NGOComplete(Integer id, Integer idUser, byte[] img, String name, String email, Address address, UserTypeEnum userType, String cnpj, String description, Category category, double assessment) {
         this.id = id;
+        this.idUser = idUser;
         this.img = img;
         this.name = name;
         this.email = email;
@@ -32,6 +34,14 @@ public class NGOComplete {
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
     }
 
     public byte[] getImg() {

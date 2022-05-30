@@ -95,12 +95,6 @@ public class UserController {
 
         }
 
-        byte[] decoded = Base64Utils.decode(response.getUser().getImg() != null
-                                                    ? response.getUser().getImg()
-                                                    : new byte[]{});
-
-        response.getUser().setImg(decoded);
-
         return ResponseEntity.status(200).body(response);
     }
 
