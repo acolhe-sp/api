@@ -5,8 +5,6 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "tb_ngo")

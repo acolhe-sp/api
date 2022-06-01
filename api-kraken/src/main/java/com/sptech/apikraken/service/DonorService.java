@@ -196,7 +196,8 @@ public class DonorService implements IService<DonorDTO, Donor> {
             DonationDataPerfil dataDonationsPerfil = new DonationDataPerfil(
                     donations.size(),
                     donations,
-                    donations.stream().map(Donation::getValue).reduce(0.0, Double::sum)
+                    donations.stream().map(donation -> donation.getPayment().getValue())
+                                        .reduce(0.0, Double::sum)
             );
 
             return dataDonationsPerfil;

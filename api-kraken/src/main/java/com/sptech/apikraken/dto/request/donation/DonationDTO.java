@@ -1,40 +1,32 @@
-package com.sptech.apikraken.entity;
+package com.sptech.apikraken.dto.request.donation;
 
-import com.sptech.apikraken.dto.request.donation.DonationDTO;
+import com.sptech.apikraken.entity.Donor;
+import com.sptech.apikraken.entity.NGO;
+import com.sptech.apikraken.entity.Payment;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "tb_donation")
-public class Donation {
+public class DonationDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_donation")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_donor", referencedColumnName = "id_donor")
+    @NotNull
     private Donor donor;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_ngo", referencedColumnName = "id_ngo")
+    @NotNull
     private NGO ngo;
 
-    @OneToOne
-    @JoinColumn(name = "fk_payment", referencedColumnName = "id_payment")
+    @NotNull
     private Payment payment;
 
-    @Column(name = "status_donation")
     private String status;
 
-    @Column(name = "datetime_donation")
     private LocalDateTime dateDonation;
 
-    public Donation() {}
+    public DonationDTO() {}
 
-    public Donation(Donor donor, NGO ngo, Payment payment, String status) {
+    public DonationDTO(Donor donor, NGO ngo, Payment payment, String status) {
         this.donor = donor;
         this.ngo = ngo;
         this.payment = payment;
@@ -42,23 +34,9 @@ public class Donation {
         this.dateDonation = LocalDateTime.now();
     }
 
-    public Donation(Integer id, Donor donor, NGO ngo, Payment payment, String status) {
+    public DonationDTO(Integer id, Donor donor, NGO ngo, Payment payment, String status) {
         this(donor, ngo, payment, status);
         this.id = id;
-    }
-
-    public Donation(int id, Donor donor, NGO ngo, Payment payment, String status, LocalDateTime dateDonation) {
-        this(id, donor, ngo, payment, status);
-        this.dateDonation = dateDonation;
-    }
-
-    public Donation(DonationDTO donationDTO) {
-        this(
-            donationDTO.getDonor(),
-            donationDTO.getNgo(),
-            donationDTO.getPayment(),
-            donationDTO.getStatus()
-        );
     }
 
     public Integer getId() {
@@ -111,12 +89,12 @@ public class Donation {
 
     @Override
     public String toString() {
-        return "Donation{" +
+        return "DonationDTO{" +
                 "id=" + id +
                 ", donor=" + donor +
                 ", ngo=" + ngo +
                 ", payment=" + payment +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 ", dateDonation=" + dateDonation +
                 '}';
     }
