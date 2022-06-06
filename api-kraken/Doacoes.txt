@@ -1,0 +1,5 @@
+00DOACOES06-06-2022 16:09:0701
+00DOACOES06-06-2022 16:09:5401
+021       Pendente           Itallo David da Silva Gomes503.280.748-61 53.129.330-0        60,00TypePayment{id=1, de    06-06-2022 16:05:17       
+022       Concluido          Itallo David da Silva Gomes503.280.748-61 53.129.330-0        60,00TypePayment{id=1, de    06-06-2022 16:05:27       
+010000000002
