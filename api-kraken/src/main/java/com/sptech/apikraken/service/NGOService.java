@@ -5,7 +5,7 @@ import com.sptech.apikraken.dto.response.ngo.NGOComplete;
 import com.sptech.apikraken.entity.Address;
 import com.sptech.apikraken.entity.NGO;
 import com.sptech.apikraken.entity.User;
-import com.sptech.apikraken.list.ListaObj;
+import com.sptech.apikraken.utils.list.ListaObj;
 import com.sptech.apikraken.repository.INGORepository;
 import com.sptech.apikraken.repository.IUserRepository;
 import com.sptech.apikraken.useCases.addresses.RegisterAddressUseCase;

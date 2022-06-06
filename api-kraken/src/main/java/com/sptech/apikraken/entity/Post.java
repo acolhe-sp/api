@@ -36,36 +36,31 @@ public class Post {
     @PastOrPresent
     private LocalDateTime dateTime;
 
-    @Column(name = "amount_evaluate_post")
-    @PositiveOrZero
-    private int amountEvaluate;
-
     @ManyToMany(mappedBy = "notifications")
     private List<Donor> usersToNotify;
 
     public Post() {}
 
-    public Post(NGO ngo, String description, String img, int amountEvaluate) {
+    public Post(NGO ngo, String description, String img) {
         this.ngo = ngo;
         this.description = description;
         this.img = img;
         this.dateTime = LocalDateTime.now();
-        this.amountEvaluate = amountEvaluate;
         this.usersToNotify = new ArrayList<>();
     }
 
-    public Post(Integer id, NGO ngo, String description, String img, int amountEvaluate) {
-        this(ngo, description, img, amountEvaluate);
+    public Post(Integer id, NGO ngo, String description, String img) {
+        this(ngo, description, img);
         this.id = id;
     }
 
-    public Post(Integer id, NGO ngo, String description, String img, LocalDateTime dateTime, int amountEvaluate) {
-        this(id, ngo, description, img, amountEvaluate);
+    public Post(Integer id, NGO ngo, String description, String img, LocalDateTime dateTime) {
+        this(id, ngo, description, img);
         this.dateTime = dateTime;
     }
 
     public Post(PostDTO post) {
-        this(post.getNgo(), post.getDescription(), post.getImg(), post.getAmountEvaluate());
+        this(post.getNgo(), post.getDescription(), post.getImg());
     }
 
     public Integer getId() {
@@ -108,14 +103,6 @@ public class Post {
         this.dateTime = dateTime;
     }
 
-    public int getAmountEvaluate() {
-        return amountEvaluate;
-    }
-
-    public void setAmountEvaluate(int amountEvaluate) {
-        this.amountEvaluate = amountEvaluate;
-    }
-
     public List<Donor> getUsersToNotify() {
         return usersToNotify;
     }
@@ -132,7 +119,6 @@ public class Post {
                 ", description='" + description + '\'' +
                 ", img='" + img + '\'' +
                 ", dateTime=" + dateTime +
-                ", amountEvaluate=" + amountEvaluate +
                 '}';
     }
 }

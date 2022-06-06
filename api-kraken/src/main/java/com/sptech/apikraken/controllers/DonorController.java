@@ -110,6 +110,38 @@ public class DonorController {
         }
     }
 
+    @PostMapping("/{idDonor}/like-post/{idPost}")
+    public ResponseEntity updateLikeStatePostByDonor(@PathVariable Integer idDonor,
+                                                     @PathVariable Integer idPost)
+    {
+        try {
+
+            boolean stateLikePost = donorService.turnLikeState(idDonor, idPost);
+
+            return ResponseEntity.status(201).body(stateLikePost);
+
+        } catch (Exception e) {
+            System.out.println("esse erro: "+e.getMessage());
+            return ResponseEntity.status(500).build();
+        }
+    }
+
+    @GetMapping("/{idDonor}/state-like-post/{idPost}")
+    public ResponseEntity checkLikeStatePostByDonor(@PathVariable Integer idDonor,
+                                                     @PathVariable Integer idPost)
+    {
+        try {
+
+            boolean stateLikePost = donorService.checkLikeState(idDonor, idPost);
+
+            return ResponseEntity.status(201).body(stateLikePost);
+
+        } catch (Exception e) {
+            System.out.println("esse erro: "+e.getMessage());
+            return ResponseEntity.status(500).build();
+        }
+    }
+
     @GetMapping("/{id}/donations")
     public ResponseEntity donationsDonor(@PathVariable Integer id) {
         try {

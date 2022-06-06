@@ -25,29 +25,25 @@ public class PostDTO {
     @PastOrPresent
     private LocalDateTime dateTime;
 
-    @PositiveOrZero
-    private int amountEvaluate;
-
     private List<Donor> usersToNotify;
 
     public PostDTO() {}
 
-    public PostDTO(NGO ngo, String description, String img, LocalDateTime dateTime, int amountEvaluate) {
+    public PostDTO(NGO ngo, String description, String img, LocalDateTime dateTime) {
         this.ngo = ngo;
         this.description = description;
         this.img = img;
         this.dateTime = dateTime;
-        this.amountEvaluate = amountEvaluate;
         this.usersToNotify = new ArrayList<>();
     }
 
-    public PostDTO(Integer id, NGO ngo, String description, String img, LocalDateTime dateTime, int amountEvaluate) {
-        this(ngo, description, img, dateTime, amountEvaluate);
+    public PostDTO(Integer id, NGO ngo, String description, String img, LocalDateTime dateTime) {
+        this(ngo, description, img, dateTime);
         this.id = id;
     }
 
     public PostDTO(NGO ngo, String description, String img) {
-        this(ngo, description, img, LocalDateTime.now(), 0);
+        this(ngo, description, img, LocalDateTime.now());
     }
 
     public PostDTO(Post post) {
@@ -56,8 +52,7 @@ public class PostDTO {
                 post.getNgo(),
                 post.getDescription(),
                 post.getImg(),
-                post.getDateTime(),
-                post.getAmountEvaluate()
+                post.getDateTime()
         );
         this.usersToNotify = post.getUsersToNotify();
     }
@@ -100,14 +95,6 @@ public class PostDTO {
 
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
-    }
-
-    public int getAmountEvaluate() {
-        return amountEvaluate;
-    }
-
-    public void setAmountEvaluate(int amountEvaluate) {
-        this.amountEvaluate = amountEvaluate;
     }
 
     public List<Donor> getUsersToNotify() {

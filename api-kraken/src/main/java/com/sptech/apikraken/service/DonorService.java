@@ -6,7 +6,8 @@ import com.sptech.apikraken.dto.response.donation.DonationDataPerfil;
 import com.sptech.apikraken.dto.response.donor.DonorFollowing;
 import com.sptech.apikraken.entity.*;
 import com.sptech.apikraken.entity.keys.FollowKey;
-import com.sptech.apikraken.list.ListaObj;
+import com.sptech.apikraken.entity.keys.LikeKey;
+import com.sptech.apikraken.utils.list.ListaObj;
 import com.sptech.apikraken.repository.*;
 import com.sptech.apikraken.useCases.addresses.RegisterAddressUseCase;
 import com.sptech.apikraken.useCases.donors.RegisterDonorValidateUseCase;
@@ -26,6 +27,8 @@ public class DonorService implements IService<DonorDTO, Donor> {
     @Autowired private IFollowDonorNGORepository followReposotory;
     @Autowired private IDonationRepository donationReposotory;
     @Autowired private IUserRepository iUserRepository;
+    @Autowired private IPostRepository iPostRepository;
+    @Autowired private ILikeDonorPostRepository likeRepository;
 
     @Autowired private RegisterUserValidateUseCase registerUserValidateUseCase;
     @Autowired private RegisterDonorValidateUseCase registerDonorValidateUseCase;
@@ -185,6 +188,39 @@ public class DonorService implements IService<DonorDTO, Donor> {
 
         } else {
             throw new IllegalArgumentException("Id Donor inválido");
+        }
+    }
+
+    public Boolean turnLikeState(Integer idDonor, Integer idPost) {
+        if (iDonorRepository.existsById(idDonor) && iPostRepository.existsById(idPost)) {
+
+            boolean existLike = likeRepository.existsById(new LikeKey(idDonor, idPost));
+
+            if (existLike) {
+                likeRepository.deleteById(new LikeKey(idDonor, idPost));
+                return false;
+            } else {
+                likeRepository.save(
+                        new LikeDonorPost(
+                                new LikeKey(idDonor, idPost),
+                                iDonorRepository.findById(idDonor).get(),
+                                iPostRepository.findById(idPost).get()
+                        )
+                );
+                return true;
+            }
+        } else {
+            throw new IllegalArgumentException("Id Donor ou Id Post inválidos");
+        }
+    }
+
+    public Boolean checkLikeState(Integer idDonor, Integer idPost) {
+        if (iDonorRepository.existsById(idDonor) && iPostRepository.existsById(idPost)) {
+
+            return likeRepository.existsById(new LikeKey(idDonor, idPost));
+
+        } else {
+            throw new IllegalArgumentException("Id Donor ou Id Post inválidos");
         }
     }
 

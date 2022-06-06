@@ -1,4 +1,4 @@
-package com.sptech.apikraken.list;
+package com.sptech.apikraken.utils.list;
 
 import java.util.List;
 
